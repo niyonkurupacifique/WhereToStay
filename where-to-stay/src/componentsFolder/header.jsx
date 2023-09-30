@@ -92,8 +92,8 @@ const Header = () => {
                     class="text-black rounded-lg px-5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     type="button"
                 >
-                                 <div class="w-14 h-14 mr-2 rounded-full bg-green-500 flex items-center justify-center">
-            <h1 class="text-white text-2xl">{userName.charAt(0).toUpperCase()}</h1>
+                                 <div class="w-12 h-12 mr-2 rounded-full bg-green-500 flex items-center justify-center">
+            <h1 class="text-white text-2xl">{userName.charAt(0).toUpperCase()}S</h1>
         </div>
 
                     <svg

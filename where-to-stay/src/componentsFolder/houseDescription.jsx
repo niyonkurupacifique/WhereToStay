@@ -1,10 +1,4 @@
 import Header from "./header";
-//  import image0 from './Images/house0.png'
-//  import image1 from './Images/house1.png'
-//  import image2 from './Images/house2.png'
-//  import image3 from './Images/house3.png'
-//  import image4 from './Images/house4.png'
-//  import image5 from './Images/house5.png'
 import marker from "./Images/icon8.gif";
 import houseOwner from "./Images/accountOwner.png";
 import { useContext, useEffect, useState } from "react";

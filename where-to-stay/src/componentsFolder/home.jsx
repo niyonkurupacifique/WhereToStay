@@ -11,9 +11,11 @@ import { CiLocationOn } from 'react-icons/ci';
 import{MdBedroomParent,MdBathroom} from 'react-icons/md'
 import { useContext } from "react";
  import { OpenModalContext } from "./context";
+ import { ThreeDots } from "react-loader-spinner"; 
 
  import Footer from "./footer";
 import { useState } from "react";
+
 const Home=()=>{
 const [allHouse,setAllHouse]=useState([])
 const[accountClicked,setAccountClicked]=useState(false)
@@ -269,66 +271,75 @@ const handleMouseLeav=()=>{
       </div>
     </div>
   </div>   */}
-<div className=" grid grid-cols-3 space-x-3 space-y-5  shadow-sm shadow-black/75">
-  {
-   allHouse.length<0? <div className=" bg-red-400">No house available</div>:allHouse.map((item)=>{
-     return <div >
-      <div  className=" shadow-lg shadow-black/30 mt-4 mb-4 mx-4">
-          <img style={{width:'90%'}} src={item.imageUrls[0]} alt="" />
-          <span style={{ fontFamily:'inter',fontWeight:'700px',fontSize:'18px',lineHeight:'21.78px'}} className=" flex mt-4 ml-7">{item.location}</span>
-          <div className=" space-y-5 ml-7 mt-3">
-         <div className=" flex  space-x-16 font-headerFontFamily font-txtbodyFontWeight leading-anotherLineHeight tracking-txtbodyLetterspacing text-txthecolor">
-         <div className=" flex space-x-3">
-            <div>
-            <CiLocationOn size={25} color="blue"  />
+
+{allHouse.length === 3 ? (
+        <div className="bg-white p-4 flex justify-center">
+          <ThreeDots
+            height={90}
+            width={90}
+            color="#0000FF"
+            ariaLabel="three-dots-loading"
+          />
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
+          
+    {allHouse.map((item, index) => (
+      <div
+        key={index}
+        className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200"
+      >
+        <img
+          src={item.imageUrls[0]}
+          alt={item.location}
+          className="w-full h-48 bject-cover object-center"
+        />
+        <div className="p-4">
+          <h2 className="text-xl font-semibold mb-2">{item.location}</h2>
+          <div className="text-gray-600 mb-4">
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center">
+                <CiLocationOn size={25} color="blue" />
+                <span className="ml-2">{item.location}</span>
+              </div>
+              <div className="flex items-center">
+                <AiOutlineHome size={25} color="blue" />
+                <span className="ml-2">{item.property_type}</span>
+              </div>
             </div>
-            <div>
-            {item.location}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <MdBedroomParent color="blue" size={25} />
+                <span className="ml-2">{item.number_rooms} bedroom</span>
+              </div>
+              <div className="flex items-center">
+                <MdBathroom color="blue" size={25} />
+                <span className="ml-2">{item.number_of_bathrooms} bathrooms</span>
+              </div>
             </div>
-         </div>
-         <div className=" flex   space-x-3">
-            <div>
-            <AiOutlineHome size={25}  color="blue"  height='30px'/>
-            </div>
-            <div>
-            {item.property_type}
-            </div>
-         </div>
-         </div>
-         <div className=" flex space-x-8 font-headerFontFamily font-txtbodyFontWeight leading-anotherLineHeight tracking-txtbodyLetterspacing text-txthecolor">
-         <div className=" flex space-x-3">
-            <div>
-               <MdBedroomParent color="blue" size={25} />
-            </div>
-            <div>
-            {item.number_rooms}bedroom
-            </div>
-         </div>
-         <div className=" flex space-x-3">
-            <div>
-               <MdBathroom color="blue" size={25} />
-            </div>
-            <div>
-             {/* {item.number_of_bathrooms} */}9bathrooms
-            </div>
-         </div>
-         </div>
-         <div className=" flex space-x-8 font-headerFontFamily font-txtbodyFontWeight leading-anotherLineHeight tracking-txtbodyLetterspacing text-txthecolor">
-         <div className=" flex space-x-9">
-            
-            <div className=" mt-2  text-txtecolor font-headerFontFamily text-txtbodyFontsize font-txtbodyFontWeight leading-anotherLineHeight tracking-txtbodyLetterspacing">
-            {item.price}Rwf<span className="ml-1">per month</span>
-            </div>
-         </div>
-         <button onClick={()=>{ navigate(`/housedescription/${item.id}`)}} type="button" class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">View house</button>
-         </div>
-         </div>
-       
           </div>
-     </div>
-    })
-  }
+          <div className="flex justify-between items-center">
+            <div className="text-purple-700 font-semibold text-xl">
+              {item.price} Rwf
+            </div>
+            <button
+              onClick={() => {
+                navigate(`/housedescription/${item.id}`);
+              }}
+              type="button"
+              className="focus:outline-none bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 text-white font-medium rounded-lg px-4 py-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
+            >
+              View House
+            </button>
+          </div>
+        </div>
+      </div>
+    ))}
   </div>
+  )}
+</div>
+
+
 </div>
 
     <div className=" flex flex-col items-center h-60 mt-10 bg-blue-500 ml-5 mr-3">
@@ -365,8 +376,7 @@ const handleMouseLeav=()=>{
    <div>
     <Footer></Footer>
    </div>
- </div>
- 
+
       </>
     )
 }
