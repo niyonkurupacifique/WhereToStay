@@ -160,10 +160,10 @@ const HouseDescription = () => {
               </div>
             </div>
           </div>
-          <div className=" ml-40 mt-7 flex space-x-4">
-            <div className=" space-y-3">
+          <div className=" ml-30 mt-7 flex items-center justify-center">
+            <div className=" space-y-3 mr-40">
               <div>
-                <span className=" ml-7 font-txtFontFamily text-headerFontSize font-headerFontWeight leading-txttttLineHeight tracking-txttttttttttttttttttbodyLetterspacing">
+                <span className=" font-txtFontFamily text-headerFontSize font-headerFontWeight leading-txttttLineHeight tracking-txttttttttttttttttttbodyLetterspacing">
                   Description
                 </span>
               </div>
@@ -225,7 +225,7 @@ const HouseDescription = () => {
             </div>
             <div className=" space-y-3">
               <div className=" font-txtFontFamily text-headerFontSize font-headerFontWeight leading-txttttLineHeight tracking-txttttttttttttttttttbodyLetterspacing">
-                Map Location
+                Location
               </div>
               <div>
               <MapContainer
@@ -270,7 +270,7 @@ const HouseDescription = () => {
                   alt=""
                 />
               </div>
-              <div className=" mt-24   font-txtFontFamily text-txtbodyFontsize font-txtbodyFontWeight leading-txtbodylineHeight tracking-txttttttttttttttttttbodyLetterspacing">
+              <div className=" mt-24  font-txtFontFamily text-txtbodyFontsize font-txtbodyFontWeight leading-txtbodylineHeight tracking-txttttttttttttttttttbodyLetterspacing">
                 <div>
                   <span>
                     Property Owner:{houseDescriptionById.User.firstName}{" "}
