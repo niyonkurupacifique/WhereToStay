@@ -17,8 +17,15 @@ import 'react-slideshow-image/dist/styles.css'
 import Footer from "./footer";
 import Cookies from "js-cookie";
 import { useParams } from 'react-router-dom';
-import { Map, TileLayer, Marker } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
+
+const customIcon = new L.Icon({
+    iconUrl: 'path_to_icon.png', 
+    iconSize: [32, 32], 
+    iconAnchor: [16, 32], 
+  });
 
 const spanStyle = {
   padding: '20px',
@@ -166,10 +173,24 @@ const HouseDescription = () => {
                    </div>
                </div>
                <div className=" space-y-3">
-                   <div  className=" font-txtFontFamily text-headerFontSize font-headerFontWeight leading-txttttLineHeight tracking-txttttttttttttttttttbodyLetterspacing">Map Location</div>
-                   <div>
-                       <img src={mapImage} alt="" />
-                   </div>
+               <div className=" font-txtFontFamily text-headerFontSize font-headerFontWeight leading-txttttLineHeight tracking-txttttttttttttttttttbodyLetterspacing">Map Location</div>
+<div>
+  <MapContainer
+    center={[-1.9503097781668681, 30.133552819906043]} 
+    zoom={15} 
+    style={{ width: '400px', height: '200px' }}
+  >
+    <TileLayer
+      url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+    />
+    <Marker
+      position={[-1.9503097781668681, 30.133552819906043]}
+    >
+      {/* You can customize the marker here */}
+    </Marker>
+  </MapContainer>
+</div>
+
                </div>
              </div>
              <div  className=" ml-32  mt-8">
