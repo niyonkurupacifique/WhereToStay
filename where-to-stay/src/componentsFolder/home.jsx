@@ -88,12 +88,12 @@ const handleMouseLeav=()=>{
             </div> 
         <div className="mt-5 h-full  mx-8">
   <div className="relative h-1/3 ">
-    <img className="brightness-50  " src={bodyPic} alt="" />
+    <img className="brightness-50 h-[200px] w-[1250px] " src={bodyPic} alt="" />
     <div className="w-full inset-x-0  top-20  absolute flex justify-center items-center">
-      <span className="text-center   font-txtFontFamily text-txtFontSize font-headerFontWeight leading-txtlineHeight tracking-txtLetterSpacing text-white">Find your dream rental in Kigali</span>
+      <span className="text-center font-txtFontFamily text-txtFontSize font-headerFontWeight leading-txtlineHeight tracking-txtLetterSpacing text-white mt-[-88px]">Find your dream rental in Kigali</span>
      </div>
      <div className=" text-white inset-x-0  bottom-28 absolute w-full mt-40">
-    <div className=" flex justify-between border mx-24 py-7 px-7 rounded-lg bg-white">
+    <div className=" flex justify-between border mx-24 py-7 px-7 rounded-lg bg-white mb-[-83px]">
         
         <div>
             <div className=" ml-9 text-black font-txtFontFamily font-txtbodyFontWeight text-txtbodyFontsize leading-txtbodylineHeight tracking-txtbodyLetterspacing">Location</div>
@@ -280,7 +280,7 @@ const handleMouseLeav=()=>{
             color="#0000FF"
             ariaLabel="three-dots-loading"
           />
-          
+
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
