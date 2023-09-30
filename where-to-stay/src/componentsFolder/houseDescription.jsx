@@ -1,11 +1,11 @@
 
  import Header from "./header";
- import image0 from './Images/house0.png'
- import image1 from './Images/house1.png'
- import image2 from './Images/house2.png'
- import image3 from './Images/house3.png'
- import image4 from './Images/house4.png'
- import image5 from './Images/house5.png'
+//  import image0 from './Images/house0.png'
+//  import image1 from './Images/house1.png'
+//  import image2 from './Images/house2.png'
+//  import image3 from './Images/house3.png'
+//  import image4 from './Images/house4.png'
+//  import image5 from './Images/house5.png'
  import mapImage from './Images/map.png'
  import houseOwner from './Images/accountOwner.png'
  import { useContext, useEffect, useState } from "react";
@@ -17,6 +17,8 @@ import 'react-slideshow-image/dist/styles.css'
 import Footer from "./footer";
 import Cookies from "js-cookie";
 import { useParams } from 'react-router-dom';
+import { Map, TileLayer, Marker } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 
 const spanStyle = {
   padding: '20px',
@@ -132,13 +134,13 @@ const HouseDescription = () => {
                        </div>
                        <div className=" font-txtFontFamily text-txtbodyFontsize font-txtbodyFontWeight leading-txtbodylineHeight tracking-txttttttttttttttttttbodyLetterspacing">
                            <div>
-                               <span>Address:{houseDescriptionById.location}</span>
+                               <span>Address: {houseDescriptionById.location}</span>
                            </div>
                            <div>
-                               <span>District:Gasabo</span>
+                               <span>District: Gasabo</span>
                            </div>
                            <div>
-                               <span>Sector:Bumbogo</span>
+                               <span>Sector: Bumbogo</span>
                            </div>
                        </div>
                    </div>
