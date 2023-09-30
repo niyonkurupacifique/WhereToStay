@@ -11,6 +11,38 @@ const Header = () => {
   const { setOpenSignup } = useContext(OpenModalContext);
   const { setOpenChat } = useContext(OpenModalContext);
   const [mouseIsOver, setMouseIsOver] = useState(false);
+  const [userName, setUserName] = useState(""); 
+
+  const fetchUserName = async () => {
+    try {
+      const userToken = localStorage.getItem("userToken");
+      console.log(userToken);
+      if (!userToken) {
+        console.error("User token not found");
+        return;
+      }
+
+      const response = await fetch('https://wheretostay.onrender.com/api/user', {
+        headers: {
+          Authorization: `Bearer ${userToken}`,
+        },
+      });
+
+      if (response.ok) {
+        const userData = await response.json();
+        console.log(userData);
+        setUserName(userData.firstName);
+      } else {
+        console.error("Error fetching user's information:", response.status);
+      }
+    } catch (error) {
+      console.error("Error fetching user's information", error);
+    }
+  };
+  useEffect(() => {
+  fetchUserName();
+}, []);
+
   
   const handleAccountClick = () => {
     setAccountClicked(!accountClicked);
@@ -61,7 +93,7 @@ const Header = () => {
                     type="button"
                 >
                                  <div class="w-14 h-14 mr-2 rounded-full bg-green-500 flex items-center justify-center">
-            <h1 class="text-white text-2xl">S</h1>
+            <h1 class="text-white text-2xl">{userName.charAt(0).toUpperCase()}</h1>
         </div>
 
                     <svg
