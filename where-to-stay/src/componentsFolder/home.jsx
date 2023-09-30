@@ -272,7 +272,7 @@ const handleMouseLeav=()=>{
     </div>
   </div>   */}
 
-{allHouse.length === 3 ? (
+{allHouse.length === 0 ? (
         <div className="bg-white p-4 flex justify-center">
           <ThreeDots
             height={90}
@@ -280,6 +280,7 @@ const handleMouseLeav=()=>{
             color="#0000FF"
             ariaLabel="three-dots-loading"
           />
+          
         </div>
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
