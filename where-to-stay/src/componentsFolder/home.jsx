@@ -10,15 +10,29 @@ import { AiOutlineHome} from 'react-icons/ai'
 import { CiLocationOn } from 'react-icons/ci';
 import{MdBedroomParent,MdBathroom} from 'react-icons/md'
 import { useContext } from "react";
- import { OpenModalContext } from "./context";
+import { OpenModalContext } from "./context";
+import {HideOn} from 'react-hide-on-scroll'
 
  import Footer from "./footer";
 import { useState } from "react";
 const Home=()=>{
+ 
 const [allHouse,setAllHouse]=useState([])
-const[accountClicked,setAccountClicked]=useState(false)
+const[LocationaccountClicked,setLocationAccountClicked]=useState(false)
+const[typeOfPropertyaccountClicked,setTypeOfPropertyAccountClicked]=useState(false)
+const[bedRoomaccountClicked,setbedRoomAccountClicked]=useState(false)
+const[BathroomaccountClicked,setbathroomAccountClicked]=useState(false)
+const[priceRange,setPriceRange]=useState(false)
 const{setOpenChat}=useContext(OpenModalContext)
 const[mouseIsOver,setMouseIsOver]=useState(false)
+const[locationSelected,setLocationSelected]=useState("")
+const[typeOfPropertySelected,setTypeOfPropertySelected]=useState("")
+const[BedroomSelected,setBedroomSelected]=useState("")
+const[bathroomSelected,setBathroomSelected]=useState("")
+const[priceRangeAmount,setPriceRangeAmount]=useState("0frw-50000frw")
+const[filteredArray,setFilteredArray]=useState([])
+const[allHouseToFilter,setAllHouseToFilter]=useState([])
+console.log(priceRangeAmount)
 const handleOpenChat=()=>{
   setOpenChat(true)
 }
@@ -36,24 +50,73 @@ const handleMouseLeav=()=>{
     const result2=await result.json()
     console.log(result2)
     setAllHouse(result2) 
+    setAllHouseToFilter(result2)
   }
+  const GetAllHouseTofilter=async()=>{
+    const result=await fetch("https://wheretostay.onrender.com/api/properties/all")
+    const result3=await result.json()
+    console.log(result3)
+    setAllHouseToFilter(result3)
+  }
+
+  
+
 
    
     const navigate=useNavigate(Navigate)
-    const handleAccountClick=()=>{
-        setAccountClicked(!accountClicked)
-        console.log(!accountClicked)
+    const handleLocationAccountClick=()=>{
+         setLocationAccountClicked(!LocationaccountClicked)
+        
     }
+    const handleTypeOfPropertyAccountClick=()=>{
+      setTypeOfPropertyAccountClicked(!typeOfPropertyaccountClicked)
+    
+    }
+    const handleNumberOfBedroomAccountClick=()=>{
+      setbedRoomAccountClicked(!bedRoomaccountClicked)
+    
+    }
+    const handleNumberOfBathroomAccountClick=()=>{
+      setbathroomAccountClicked(!BathroomaccountClicked)
+    
+    }
+    const handlePriceRangeAccount=()=>{
+      setPriceRange(!priceRange)
+
+    }
+
     const handleHouseClicked=()=>{
       navigate('/housedescription')
     }
     useEffect(()=>{
       GetAllHouse()
+      GetAllHouseTofilter()
     },[])
+
+    const filterRange=priceRangeAmount
+  const [minPriceStr, maxPriceStr] = filterRange.split('-');
+  const minPrice = parseFloat(minPriceStr.replace(/[^\d.]/g, ''));
+  const maxPrice = parseFloat(maxPriceStr.replace(/[^\d.]/g, ''));
+  
+   const handleFilter=()=>{
+  const filtered=allHouse.filter((item)=>{
+      const locationMatch=item.location.toLowerCase().includes(locationSelected.toLowerCase());
+      const numberOfBedRoomMatch=item.number_rooms===BedroomSelected;
+      const numberOfBathRoomMatch=item.number_of_bathrooms===bathroomSelected;
+      return locationMatch&&numberOfBedRoomMatch&&numberOfBathRoomMatch;
+
+     })
+     setFilteredArray(filtered)
+     console.log(" filterd is:",filtered )
+   }
+    
+
+
     return(
         <>
         <div className=" h-full mx-5">
         <Header></Header>
+      
         <div  onMouseOver={handleMouseOver}   onMouseOut={handleMouseLeav} className="flex bg-white  z-10 bottom-5 fixed  right-0 ">
             <button    onClick={handleOpenChat} className="  px-5 text-headerFontSize font-headerFontFamily font-headerFontWeight leading-headerLineHeight text-blue-700">Chat with Us</button>
             <div>
@@ -87,30 +150,37 @@ const handleMouseLeav=()=>{
         <div className="mt-5 h-full  mx-8">
   <div className="relative h-1/3 ">
     <img className="brightness-50  " src={bodyPic} alt="" />
+    <HideOn atHeight height={2}>
     <div className="w-full inset-x-0  top-20  absolute flex justify-center items-center">
       <span className="text-center   font-txtFontFamily text-txtFontSize font-headerFontWeight leading-txtlineHeight tracking-txtLetterSpacing text-white">Find your dream rental in Kigali</span>
      </div>
+     </HideOn>
      <div className=" text-white inset-x-0  bottom-28 absolute w-full mt-40">
+     <HideOn atHeight height={1}>
     <div className=" flex justify-between border mx-24 py-7 px-7 rounded-lg bg-white">
         
         <div>
             <div className=" ml-9 text-black font-txtFontFamily font-txtbodyFontWeight text-txtbodyFontsize leading-txtbodylineHeight tracking-txtbodyLetterspacing">Location</div>
             <div>
             <div className="relative" >        
-<button   onClick={handleAccountClick} id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-black      rounded-lg  px-5  text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"><span  className=" font-txtFontFamily text-txtbodyFontsize font-txtbodyFontWeight leading-txtbodylineHeight tracking-txtbodyLetterspacing ">Select the area</span> <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+<button   onClick={handleLocationAccountClick} id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-black      rounded-lg  px-5  text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"><span  className=" font-txtFontFamily text-txtbodyFontsize font-txtbodyFontWeight leading-txtbodylineHeight tracking-txtbodyLetterspacing ">Select the area</span> <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
   </svg></button></div> 
 <div className=" absolute ">
   {
-    accountClicked&&(
+    LocationaccountClicked&&(
 <div id="dropdown" class="z-10 relative  bg-white divide-y divide-gray-100 rounded-lg  shadow-lg   dark:bg-gray-700">
     <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-      <li>
-        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+     
+     {
+      [...new Set(allHouseToFilter.map((item)=>item.location))].map((location=>(
+        <li>
+        <button onClick={()=>{ setLocationSelected(location);setLocationAccountClicked(false)}}  class="block px-4 py-2 hover:bg-blue-500  dark:hover:bg-gray-600 dark:hover:text-white">{location}</button>
       </li>
-      <li>
-        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-      </li>
+      ))
+
+      )
+     }
      
     </ul>
 </div>
@@ -123,20 +193,23 @@ const handleMouseLeav=()=>{
             <div className=" text-black font-txtFontFamily font-txtbodyFontWeight text-txtbodyFontsize leading-txtbodylineHeight tracking-txtbodyLetterspacing">Type of property</div>
             <div>
             <div className="relative" >        
-<button   onClick={handleAccountClick} id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-black      rounded-lg  px-5  text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"><span  className=" font-txtFontFamily text-txtbodyFontsize font-txtbodyFontWeight leading-txtbodylineHeight tracking-txtbodyLetterspacing ">all types</span> <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+<button   onClick={ handleTypeOfPropertyAccountClick} id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-black      rounded-lg  px-5  text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"><span  className=" font-txtFontFamily text-txtbodyFontsize font-txtbodyFontWeight leading-txtbodylineHeight tracking-txtbodyLetterspacing ">all types</span> <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
   </svg></button></div> 
 <div className=" absolute ">
   {
-    accountClicked&&(
+    typeOfPropertyaccountClicked&&(
 <div id="dropdown" class="z-10 relative  bg-white divide-y divide-gray-100 rounded-lg  shadow-lg   dark:bg-gray-700">
     <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-      <li>
-        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+    {
+      [...new Set(allHouseToFilter.map((item)=>item.property_type))].map((property_type=>(
+        <li>
+        <button  onClick={()=>{setTypeOfPropertySelected(property_type);setTypeOfPropertyAccountClicked(false)}} class="block px-4 hover:bg-blue-500 py-2  dark:hover:bg-gray-600 dark:hover:text-white">{property_type}</button>
       </li>
-      <li>
-        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-      </li>
+      ))
+
+      )
+     }
      
     </ul>
 </div>
@@ -149,20 +222,23 @@ const handleMouseLeav=()=>{
             <div className="ml-9 text-black font-txtFontFamily font-txtbodyFontWeight text-txtbodyFontsize leading-txtbodylineHeight tracking-txtbodyLetterspacing">Bedrooms</div>
             <div>
             <div className="relative" >        
-<button   onClick={handleAccountClick} id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-black      rounded-lg  px-5  text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"><span  className="font-txtFontFamily text-txtbodyFontsize font-txtbodyFontWeight leading-txtbodylineHeight tracking-txtbodyLetterspacing ">number of bedroom</span> <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+<button   onClick={handleNumberOfBedroomAccountClick} id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-black      rounded-lg  px-5  text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"><span  className="font-txtFontFamily text-txtbodyFontsize font-txtbodyFontWeight leading-txtbodylineHeight tracking-txtbodyLetterspacing ">number of bedroom</span> <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
   </svg></button></div> 
 <div className=" absolute ">
   {
-    accountClicked&&(
+    bedRoomaccountClicked&&(
 <div id="dropdown" class="z-10 relative  bg-white divide-y divide-gray-100 rounded-lg  shadow-lg   dark:bg-gray-700">
     <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-      <li>
-        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+    {
+      [...new Set(allHouseToFilter.map((item)=>item.number_rooms))].map((number_rooms=>(
+        <li>
+        <button onClick={()=>{(setBedroomSelected(number_rooms));setbedRoomAccountClicked(false)}} class="block hover:bg-blue-500 px-4 py-2  dark:hover:bg-gray-600 dark:hover:text-white">{number_rooms}</button>
       </li>
-      <li>
-        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-      </li>
+      ))
+
+      )
+     }
      
     </ul>
 </div>
@@ -175,20 +251,23 @@ const handleMouseLeav=()=>{
             <div className="ml-9 text-black font-txtFontFamily font-txtbodyFontWeight text-txtbodyFontsize leading-txtbodylineHeight tracking-txtbodyLetterspacing">Bathrooms</div>
             <div>
             <div className="relative" >        
-<button   onClick={handleAccountClick} id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-black      rounded-lg  px-5  text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"><span  className=" font-txtFontFamily text-txtbodyFontsize font-txtbodyFontWeight leading-txtbodylineHeight tracking-txtbodyLetterspacing">Number of bath rooms</span> <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+<button   onClick={handleNumberOfBathroomAccountClick} id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-black      rounded-lg  px-5  text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"><span  className=" font-txtFontFamily text-txtbodyFontsize font-txtbodyFontWeight leading-txtbodylineHeight tracking-txtbodyLetterspacing">Number of bath rooms</span> <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
   </svg></button></div> 
 <div className=" absolute ">
   {
-    accountClicked&&(
+    BathroomaccountClicked&&(
 <div id="dropdown" class="z-10 relative  bg-white divide-y divide-gray-100 rounded-lg  shadow-lg   dark:bg-gray-700">
     <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-      <li>
-        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+    {
+      [...new Set(allHouseToFilter.map((item)=>item.number_of_bathrooms))].map((number_of_bathrooms=>(
+        <li>
+        <button  onClick={()=>{setBathroomSelected(number_of_bathrooms);setbathroomAccountClicked(false)}} class="block  hover:bg-blue-400 px-4 py-2  dark:hover:bg-gray-600 dark:hover:text-white">{number_of_bathrooms}</button>
       </li>
-      <li>
-        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-      </li>
+      ))
+
+      )
+     }
      
     </ul>
 </div>
@@ -201,20 +280,42 @@ const handleMouseLeav=()=>{
             <div className="ml-9 text-black font-txtFontFamily font-txtbodyFontWeight text-txtbodyFontsize leading-txtbodylineHeight tracking-txtbodyLetterspacing">Price range</div>
             <div>
             <div className="relative" >        
-<button   onClick={handleAccountClick} id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-black      rounded-lg  px-5  text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"><span  className="font-txtFontFamily text-txtbodyFontsize font-txtbodyFontWeight leading-txtbodylineHeight tracking-txtbodyLetterspacing ">Min and Max</span> <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+<button   onClick={handlePriceRangeAccount} id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-black      rounded-lg  px-5  text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"><span  className="font-txtFontFamily text-txtbodyFontsize font-txtbodyFontWeight leading-txtbodylineHeight tracking-txtbodyLetterspacing ">Min and Max</span> <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
   </svg></button></div> 
 <div className=" absolute ">
   {
-    accountClicked&&(
+    priceRange&&(
 <div id="dropdown" class="z-10 relative  bg-white divide-y divide-gray-100 rounded-lg  shadow-lg   dark:bg-gray-700">
     <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
       <li>
-        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
+        <button onClick={()=>{setPriceRangeAmount("0rwf-30000rwf");setPriceRange(false)}} class="block hover:bg-blue-400 px-4 py-2  dark:hover:bg-gray-600 dark:hover:text-white">Less than 30, 000frw</button>
       </li>
       <li>
-        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
+        <button  onClick={()=>{setPriceRangeAmount("30000frw-50000frw");setPriceRange(false)}} class="block hover:bg-blue-400 px-4 py-2  dark:hover:bg-gray-600 dark:hover:text-white">30, 000frw- 50 000 frw</button>
       </li>
+      <li>
+        <button  onClick={()=>{setPriceRangeAmount("50000frw-70000frw");setPriceRange(false)}} class="block hover:bg-blue-400 px-4 py-2  dark:hover:bg-gray-600 dark:hover:text-white">50 000frw - 70 000 frw</button>
+      </li>
+      <li>
+      <button  onClick={()=>{setPriceRangeAmount("70000frw-100000frw");setPriceRange(false)}} class="block hover:bg-blue-400 px-4 py-2  dark:hover:bg-gray-600 dark:hover:text-white">70 000frw - 100 000 frw</button>
+      </li>
+      <li>
+      <button  onClick={()=>{setPriceRangeAmount("100000frw-150000frw");setPriceRange(false)}} class="block hover:bg-blue-400 px-4 py-2  dark:hover:bg-gray-600 dark:hover:text-white">100 000frw - 150 000 frw</button>
+      </li>
+      <li>
+      <button  onClick={()=>{setPriceRangeAmount("150000frw-200000frw");setPriceRange(false)}} class="block hover:bg-blue-400 px-4 py-2  dark:hover:bg-gray-600 dark:hover:text-white">150 000frw - 200 000 frw</button>
+      </li>
+      <li>
+      <button  onClick={()=>{setPriceRangeAmount("200000frw-400000frw");setPriceRange(false)}} class="block hover:bg-blue-400 px-4 py-2  dark:hover:bg-gray-600 dark:hover:text-white">200 000frw - 400 000 frw</button>
+      </li>
+      <li>
+      <button  onClick={()=>{setPriceRangeAmount("4000000frw-200000000frw");setPriceRange(false)}} class="block hover:bg-blue-400 px-4 py-2  dark:hover:bg-gray-600 dark:hover:text-white">Above 400 000 frw</button>
+      </li>
+
+    
+      
+     
      
     </ul>
 </div>
@@ -224,14 +325,14 @@ const handleMouseLeav=()=>{
             </div>
         </div>
         <div className="  ">
-        <button type="submit" class="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        <button  type="submit" class="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
         <svg class="w-4 h-4 mr-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
         </svg>Search
     </button>
         </div>
         </div>
-   
+        </HideOn>
 
      </div>
   </div>
@@ -271,9 +372,9 @@ const handleMouseLeav=()=>{
   </div>   */}
 <div className=" grid grid-cols-3 space-x-3 space-y-5  shadow-sm shadow-black/75">
   {
-   allHouse.length<0? <div className=" bg-red-400">No house available</div>:allHouse.map((item)=>{
+   allHouse.length===0? <div className=" w-full bg-red-400 "><span className=" flex justify-center">No house available</span></div>:allHouse.map((item)=>{
      return <div >
-      <div  className=" shadow-lg shadow-black/30 mt-4 mb-4 mx-4">
+      <div  className=" anime shadow-lg shadow-black/30 mt-4 mb-4 mx-4">
           <img style={{width:'90%'}} src={item.imageUrls[0]} alt="" />
           <span style={{ fontFamily:'inter',fontWeight:'700px',fontSize:'18px',lineHeight:'21.78px'}} className=" flex mt-4 ml-7">{item.location}</span>
           <div className=" space-y-5 ml-7 mt-3">
@@ -301,7 +402,7 @@ const handleMouseLeav=()=>{
                <MdBedroomParent color="blue" size={25} />
             </div>
             <div>
-            {item.number_rooms}bedroom
+            {item.number_rooms}  bedroom
             </div>
          </div>
          <div className=" flex space-x-3">
@@ -309,7 +410,7 @@ const handleMouseLeav=()=>{
                <MdBathroom color="blue" size={25} />
             </div>
             <div>
-             {/* {item.number_of_bathrooms} */}9bathrooms
+             {/* {item.number_of_bathrooms} */}9  bathrooms
             </div>
          </div>
          </div>
