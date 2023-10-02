@@ -46,7 +46,10 @@ const LandLoadDashboard=()=>{
   const{setMessage}=useContext(OpenModalContext)
   const{setMessageType}=useContext(OpenModalContext)
   const [propertyToDelete, setPropertyToDelete] = useState(null);
-
+   const[username,setUserName]=useState(null)
+   const[lastname,setLastname]=useState(null)
+   const[requestMade,setRequestMade]=useState([])
+   const[itemId,setItemid]=useState([])
   const [chartData, setChartData] = useState({
     options: {
       labels: ['Home', 'Apartment', 'Ghetto'],
@@ -89,13 +92,17 @@ const LandLoadDashboard=()=>{
      },
    });
    const result2 = await result.json();
+   
    const result3=[result2]
    let homeCount = 0;
    let apartmentCount = 0;
    let ghettoCount = 0;
+   const propertyIds = [];
      if(Array.isArray(result2))
      {
       result2.length!==0&&result2.forEach(property => {
+        propertyIds.push(property.id);
+        console.log("property id is:",property.id)
         switch (property.property_type) {
           case "home":
             homeCount++;
@@ -113,6 +120,7 @@ const LandLoadDashboard=()=>{
      }
      else{
      [result2].length!==0&&[result2].forEach(property => {
+      propertyIds.push(property.id);
         switch (property.property_type) {
           case "home":
             homeCount++;
@@ -124,12 +132,12 @@ const LandLoadDashboard=()=>{
             ghettoCount++;
             break;
           default:
-            // Handle other property types if needed
+           
         }
       });
      }
    
-   // Update the chart data with the new counts
+   
    setChartData({
      options: {
        labels: ['Home', 'Apartment', 'Ghetto'],
@@ -138,7 +146,7 @@ const LandLoadDashboard=()=>{
          paddingLeft: '10px',
        },
      },
-     series: [homeCount, apartmentCount, ghettoCount], // Update series with counts
+     series: [homeCount, apartmentCount, ghettoCount], 
    });
  
    setHomeCount(homeCount);
@@ -153,8 +161,10 @@ const LandLoadDashboard=()=>{
  
    if (Array.isArray(result2)) {
     setMyProperty(result2);
+    setItemid(propertyIds);
   } else {
-    setMyProperty([]); // Initialize as an empty array
+    setMyProperty([]); 
+    setItemid([result2.id]);
   }
  
    console.log("my from landloard dashboard property:", result2);
@@ -166,6 +176,40 @@ const LandLoadDashboard=()=>{
      
     },[])
 
+
+    const fetchUserName = async () => {
+      try {
+        
+        const response = await fetch('https://wheretostay.onrender.com/api/user', {
+          headers: {
+            Authorization:newToken2,
+          },
+        });
+  
+        if (response.ok) {
+          const userData = await response.json();
+          console.log("userdata is:",userData);
+          setUserName(userData.firstName);
+          setLastname(userData.lastName);
+        } else {
+          console.error("Error fetching user's information:", response.status);
+        }
+      } catch (error) {
+        console.error("Error fetching user's information", error);
+      }
+    };
+   
+    console.log("item id before",itemId)
+
+  
+ 
+
+
+
+  useEffect(() => {
+    fetchUserName();
+    console.log("item id in useeffect is",itemId)
+  }, []);
 
     const handleDeleteProperty = async (propertyId) => {
       
@@ -205,9 +249,45 @@ const LandLoadDashboard=()=>{
         setOpenDeleteWarning(false)
       }
     };
-
-
-
+    
+    useEffect(() => {
+      const fetchData = async () => {
+        const requestCounts = {}; 
+    
+        
+        await Promise.all(
+          myProperty.map(async (item) => {
+            console.log("Fetching data for property with ID:", item.id);
+            try {
+              const result = await fetch(`https://wheretostay.onrender.com/api/studentsBooked/${item.id}`, {
+                method: 'GET',
+                headers: {
+                  Authorization: newToken2,
+                },
+              });
+              if (!result.ok) {
+                console.log("No response");
+              } else {
+                const result2 = await result.json();
+                console.log("Data for property with ID:", item.id, "is", result2);
+    
+               
+                requestCounts[item.id] = result2.length;
+              }
+            } catch (error) {
+              console.log("Error fetching data for property with ID:", item.id, ":", error);
+            }
+          })
+        );
+    
+      
+        setRequestMade(requestCounts);
+      };
+    
+      fetchData();
+    }, [myProperty]);
+    
+    
 
  return(
         <div className=" h-full overflow-y-auto">
@@ -280,7 +360,7 @@ const LandLoadDashboard=()=>{
       <li>
             <a href="#" class="flex flex-col  items-center p-2 text-white rounded-lg dark:text-white hover:bg-gray-700 dark:hover:bg-gray-700 group">
                <img style={{maxWidth:'50px'}} src={profilePhoto} alt="" />
-               {/* <span  class=" ">Uwase Yvonne</span> */}
+               <span  class=" ">{username} {lastname}</span>
             </a>
          </li>
         
@@ -336,7 +416,8 @@ const LandLoadDashboard=()=>{
    <div className=" ml-80 flex flex-wrap ">
    {
      myProperty.length>0?myProperty.map((item)=>{
-        
+          
+      
      return<div style={{width:'32%'}} className=" ml-3 py-5 pb-5 shadow-xl shadow-black">
 
          <div className=" py-6  pl-8">
@@ -344,7 +425,7 @@ const LandLoadDashboard=()=>{
             <img style={{width:'70%'}} src={item.imageUrls[0]} alt="" />
          </div>
          <div className=" mt-4 ml-7 font-txtFontFamily text-txtbodyFontsize font-headerFontWeight leading-txtbodylineHeight tracking-txtbodyLetterspacing text-txthecolor">Gasabo, Bumbogo Home house</div>
-         <div className=" space-y-5 ml-7 mt-3">
+         <div className=" space-y-5 ml-1 mt-3">
          <div className=" flex  space-x-16 font-headerFontFamily font-txtbodyFontWeight leading-anotherLineHeight tracking-txtbodyLetterspacing text-txthecolor">
          <div className=" flex space-x-3">
             <div>
@@ -364,7 +445,7 @@ const LandLoadDashboard=()=>{
          </div>
          </div>
          <div className=" flex space-x-8 font-headerFontFamily font-txtbodyFontWeight leading-anotherLineHeight tracking-txtbodyLetterspacing text-txthecolor">
-         <div className=" flex space-x-3">
+         <div className=" flex space-x-1">
             <div>
                <MdBedroomParent color="blue" size={25} />
             </div>
@@ -388,15 +469,19 @@ const LandLoadDashboard=()=>{
             {item.price} Rwf
             </div>
          </div>
-         <div className=" flex space-x-3  text-txtecolor underline underline-offset-4 font-headerFontFamily text-txtbodyFontsize font-txtbodyFontWeight leading-anotherLineHeight tracking-txtbodyLetterspacing">
+       <Link to={`/bookingstatuspage/${newToken2}/${item.id}`}><div className=" flex space-x-3  text-txtecolor underline underline-offset-4 font-headerFontFamily text-txtbodyFontsize font-txtbodyFontWeight leading-anotherLineHeight tracking-txtbodyLetterspacing">
              <div>
-            More details
+            {requestMade[item.id]} students need this house 
+          
+
+          
+
             </div>
-         </div>
+         </div></Link>
          </div>
          <div className=" pt-5">
             
-         
+        
 
 <button type="button"   onClick={()=>{setOpenDeleteWarning(true);setPropertyToDelete(item.id)}} class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:focus:ring-yellow-900">Delete</button>
 <button type="button" class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">Update</button>

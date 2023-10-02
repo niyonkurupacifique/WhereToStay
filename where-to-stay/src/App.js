@@ -18,6 +18,7 @@ import StudentStatusPage from './componentsFolder/StudentStatusPage';
 import LoginFromAccount from './componentsFolder/loginFromAccount';
  import ALLhouses from './componentsFolder/Allhouses';
  import HouseDescriptionWhenLogedIn from './componentsFolder/HouseDescriptionWhenLogin';
+ import BookingStatusPage from './componentsFolder/bookingStatusPage';
 
 function App() {
   const[open,setOpen]=useState(false)
@@ -48,6 +49,7 @@ function App() {
                 <Route path="/orders" element={<Orders></Orders>} />
                 <Route path="/userDashboard/:houseId/:token" element={<UserDashboard></UserDashboard>} />
                 <Route path="/studentstatuspage/:Newtoken" element={<StudentStatusPage></StudentStatusPage>} />
+                <Route path="/bookingstatuspage/:newToken2/:itemId" element={<BookingStatusPage></BookingStatusPage>} />
              </Routes>
      </OpenModalContext.Provider>
     </div>
