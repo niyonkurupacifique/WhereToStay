@@ -83,7 +83,10 @@ e.preventDefault();
         setMessage(result2.message)
         setMessageType("success")
         setOpen(false)
+        const token = result2.token;
+        localStorage.setItem("token", token);
         console.log("token is",result2.token)
+
         navigate('/dashboard',{state:{token:result2.token}})
         
       }
@@ -94,6 +97,7 @@ e.preventDefault();
         setMessageType("success")
         setOpen(false)
         const token=result2.token
+        localStorage.setItem("token", token);
         console.log("house id in login",houseId)
         navigate(`/userDashboard/${houseId}/${token}`)
         console.log("token  of student is:",result2.token)
@@ -110,11 +114,6 @@ e.preventDefault();
     setLoading(false); // Step 2: Set loading to false when the request is completed
   }
 };
-
-
-
-
-
 
 
 

@@ -7,6 +7,7 @@ import TableRow from '@mui/material/TableRow';
 import Button from '@mui/material/Button'; 
 import Title from './Title';
 import { useParams } from 'react-router-dom';
+import ALLhouses from './Allhouses';
 
 
 function createData(date, propertyType, propertyLocation, numberOfRooms, numberOfBathrooms, propertyOwner, ownerPhoneNumber, amount, status) {
@@ -44,6 +45,7 @@ export default function StudentsStatusOrders() {
     console.log("my requested property:", result2);
   };
 
+
   useEffect(() => {
     getMyRequestedProperty();
   }, []);
@@ -58,15 +60,15 @@ export default function StudentsStatusOrders() {
       <Table>
         <TableHead>
           <TableRow>
-            <TableCell>Date</TableCell>
-            <TableCell>Property Type</TableCell>
-            <TableCell>Property Location</TableCell>
-            <TableCell>Number of Rooms</TableCell>
-            <TableCell>Number of Bathrooms</TableCell>
-            <TableCell>Property Owner</TableCell>
-            <TableCell>Owner Phone Number</TableCell>
-            <TableCell>Amount</TableCell>
-            <TableCell>Status</TableCell>
+            <TableCell style={{color:'#1976D2'}}>Date</TableCell>
+            <TableCell style={{color:'#1976D2'}}>Property Type</TableCell>
+            <TableCell style={{color:'#1976D2'}}>Property Location</TableCell>
+            <TableCell style={{color:'#1976D2'}}>Number of Rooms</TableCell>
+            <TableCell style={{color:'#1976D2'}}>Number of Bathrooms</TableCell>
+            <TableCell style={{color:'#1976D2'}}>Property Owner</TableCell>
+            <TableCell style={{color:'#1976D2'}}>Owner Phone Number</TableCell>
+            <TableCell style={{color:'#1976D2'}}>Amount</TableCell>
+            <TableCell style={{color:'#1976D2'}}>Status</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -90,6 +92,8 @@ export default function StudentsStatusOrders() {
           ))}
         </TableBody>
       </Table>
+       
     </div>
+     
   );
 }

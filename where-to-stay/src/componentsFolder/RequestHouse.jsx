@@ -49,7 +49,7 @@ export default function Orders() {
     console.log("house id from description:",houseId)
     console.log("token to use in  sendbook request  is:",token)
     const SplitToken=token.split(" ")
-    const Newtoken=SplitToken[1]
+    const Newtoken=SplitToken[1]||token
     console.log(" new token to use in  sendbook request  is",Newtoken)
     const SendBookingRequest=async()=>{
       const result =await fetch("https://wheretostay.onrender.com/api/bookings/create",{
@@ -61,7 +61,7 @@ export default function Orders() {
         }),
         headers:{
             "Content-Type": "application/json; charset=utf-8",
-            "Authorization":Newtoken
+            "Authorization": Newtoken ? ` ${Newtoken}` : `${token}`
         } 
       })
       if (!result.ok) {

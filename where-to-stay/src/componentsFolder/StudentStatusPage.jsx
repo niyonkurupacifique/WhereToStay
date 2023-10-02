@@ -22,6 +22,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
  import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import ALLhouses from './Allhouses';
 
 function Copyright(props) {
   return (
@@ -88,6 +89,10 @@ const defaultTheme = createTheme();
 export default function StudentStatusPage() {
   const [open, setOpen] = React.useState(false);
     const navigate=useNavigate(Navigate)
+    const { Newtoken } = useParams();
+    const {token}=useParams();
+    console.log("new token to use in allhou",Newtoken)
+    console.log("new token to use in allhou",token)
   const toggleDrawer = () => {
     setOpen(!open);
   };
@@ -130,12 +135,14 @@ export default function StudentStatusPage() {
             </IconButton>
           </Toolbar>
         </AppBar>
-        <Drawer variant="permanent" open={open}>
+        <Drawer  variant="permanent"  open={open}>
           <Toolbar
             sx={{
               display: 'flex',
+              
               alignItems: 'center',
               justifyContent: 'flex-end',
+             
               px: [1],
             }}
           >
@@ -144,7 +151,10 @@ export default function StudentStatusPage() {
               <ChevronLeftIcon />
             </IconButton>
           </Toolbar>
-          <button onClick={()=>{ navigate("/home")}} style={{marginTop:'10%'}} type="button" class="text-blue-700 hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"><span className=' flex justify-center'>Logout</span></button>
+          <div className=' flex flex-col max-sm:hidden'>
+          <button onClick={()=>{ navigate(`/allhouses/${Newtoken}`)}} style={{marginTop:'10%',width:'50%', marginLeft:'20%'}} type="button"  class=" hover:text-blue-700  max-sm:hidden  text-blue-700  border  hover:bg-white bg-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"><span className=' flex justify-center'>Houses</span></button>
+          <button  onClick={()=>{ navigate("/home")}} style={{marginTop:'100%',width:'50%', marginLeft:'20%'}} type="button" class="hover:text-blue-700 max-sm:text-sm max-sm:hidden max-sm:px-5 text-blue-700 border border-white hover:bg-white bg-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white dark:hover:bg-blue-500 dark:focus:ring-blue-800"><span className=' flex justify-center'>Logout</span></button>
+          </div>
         </Drawer>
         <Box
           component="main"
@@ -165,13 +175,17 @@ export default function StudentStatusPage() {
                 
               <Grid item   xs={12}>
                 <Paper  sx={{ p: 2, display: 'flex', flexDirection: 'column' }}>
-                  <StudentsStatusOrders />
+                  <StudentsStatusOrders />                  
+                
                 </Paper>
+               
               </Grid>
+            
             </Grid>
             <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>
+       
       </Box>
     </ThemeProvider>
   );

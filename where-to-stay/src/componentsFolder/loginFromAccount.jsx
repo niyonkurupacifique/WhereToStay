@@ -90,7 +90,7 @@ export default function LoginFromAccount() {
           const splitToken=token.split(" ")
           const Newtoken=splitToken[1]
          
-          navigate(`/studentstatuspage/${Newtoken}`);
+          navigate(`/allhouses/${Newtoken}`);
           console.log("token  of student is:", result2.token);
         }
       }

@@ -16,6 +16,8 @@ import Orders from './componentsFolder/RequestHouse';
 import UserDashboard from './componentsFolder/userDashboard'; 
 import StudentStatusPage from './componentsFolder/StudentStatusPage';
 import LoginFromAccount from './componentsFolder/loginFromAccount';
+ import ALLhouses from './componentsFolder/Allhouses';
+ import HouseDescriptionWhenLogedIn from './componentsFolder/HouseDescriptionWhenLogin';
 
 function App() {
   const[open,setOpen]=useState(false)
@@ -38,6 +40,8 @@ function App() {
      <Routes>
                 <Route path="/" element={<Home></Home>} exact />
                 <Route path="/home" element={<Home></Home>} exact />
+                <Route path="/logedinhousedescription/:houseId/:Newtoken" element={<HouseDescriptionWhenLogedIn></HouseDescriptionWhenLogedIn>} exact />
+                <Route path="/allhouses/:Newtoken" element={<ALLhouses></ALLhouses>} exact />
                 <Route path="/dashboard/:newToken" element={<LandLoadDashboard></LandLoadDashboard>} />
                 <Route path="/housedescription/:houseId" element={<HouseDescription></HouseDescription>} />
                 <Route path="/addnewrental/:newToken" element={<AddnewRental></AddnewRental>} />
