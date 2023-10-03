@@ -162,12 +162,16 @@ const handleMouseLeav=()=>{
     <div className=" flex justify-between border mx-24 py-7 px-7 rounded-lg bg-white mb-[-83px]">
         
         <div>
-            <div className=" ml-9 text-black font-txtFontFamily font-txtbodyFontWeight text-txtbodyFontsize leading-txtbodylineHeight tracking-txtbodyLetterspacing">Location</div>
+            <div className=" ml-9 text-black font-txtFontFamily font-txtbodyFontWeight text-txtbodyFontsize leading-txtbodylineHeight tracking-txtbodyLetterspacing">Location</div>       
             <div>
+            
             <div className="relative" >        
 <button   onClick={handleLocationAccountClick} id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-black      rounded-lg  px-5  text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"><span  className=" font-txtFontFamily text-txtbodyFontsize font-txtbodyFontWeight leading-txtbodylineHeight tracking-txtbodyLetterspacing ">Select the area</span> <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+ 
     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
+    
   </svg></button></div> 
+  <div className=" text-black ml-3 text-center bg-blue-400">{locationSelected}</div>
 <div className=" absolute ">
   {
     LocationaccountClicked&&(
@@ -198,6 +202,7 @@ const handleMouseLeav=()=>{
 <button   onClick={ handleTypeOfPropertyAccountClick} id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-black      rounded-lg  px-5  text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"><span  className=" font-txtFontFamily text-txtbodyFontsize font-txtbodyFontWeight leading-txtbodylineHeight tracking-txtbodyLetterspacing ">all types</span> <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
   </svg></button></div> 
+  <div className=" text-black ml-3 text-center bg-blue-400">{typeOfPropertySelected}</div>
 <div className=" absolute ">
   {
     typeOfPropertyaccountClicked&&(
@@ -226,7 +231,8 @@ const handleMouseLeav=()=>{
             <div className="relative" >        
 <button   onClick={handleNumberOfBedroomAccountClick} id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-black      rounded-lg  px-5  text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"><span  className="font-txtFontFamily text-txtbodyFontsize font-txtbodyFontWeight leading-txtbodylineHeight tracking-txtbodyLetterspacing ">number of bedroom</span> <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
-  </svg></button></div> 
+  </svg></button></div>
+  <div className=" text-black ml-3 text-center bg-blue-400">{BedroomSelected}</div> 
 <div className=" absolute ">
   {
     bedRoomaccountClicked&&(
@@ -256,6 +262,7 @@ const handleMouseLeav=()=>{
 <button   onClick={handleNumberOfBathroomAccountClick} id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-black      rounded-lg  px-5  text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"><span  className=" font-txtFontFamily text-txtbodyFontsize font-txtbodyFontWeight leading-txtbodylineHeight tracking-txtbodyLetterspacing">Number of bath rooms</span> <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
   </svg></button></div> 
+  <div className=" text-black ml-3 text-center bg-blue-400">{bathroomSelected}</div>
 <div className=" absolute ">
   {
     BathroomaccountClicked&&(
@@ -285,6 +292,7 @@ const handleMouseLeav=()=>{
 <button   onClick={handlePriceRangeAccount} id="dropdownDefaultButton" data-dropdown-toggle="dropdown" class="text-black      rounded-lg  px-5  text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"><span  className="font-txtFontFamily text-txtbodyFontsize font-txtbodyFontWeight leading-txtbodylineHeight tracking-txtbodyLetterspacing ">Min and Max</span> <svg class="w-2.5 h-2.5 ml-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/>
   </svg></button></div> 
+  <div className=" text-black ml-3 text-center bg-blue-400">{priceRangeAmount}</div>
 <div className=" absolute ">
   {
     priceRange&&(
