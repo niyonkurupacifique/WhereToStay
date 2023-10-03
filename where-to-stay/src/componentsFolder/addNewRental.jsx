@@ -28,9 +28,10 @@ import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
-import { FaCamera } from 'react-icons/fa';
+import { AiOutlineCloudUpload } from "react-icons/ai";
+import { BsFillImageFill } from "react-icons/bs";
 import { color } from "@cloudinary/url-gen/qualifiers/background";
-import '../App.css'
+import "../App.css";
 
 const AddnewRental = () => {
   const navigate = useNavigate(Navigate);
@@ -399,86 +400,150 @@ const AddnewRental = () => {
                 style={{ marginLeft: "10%", maxWidth: "13%", maxHeight: "80%" }}
                 class="relative   text-white p-2 rounded border border-black   cursor-pointer"
               >
-<div className="flex justify-center items-center w-full relative group">
-  <input
-    type="file"
-    onChange={handleImageUpload}
-    accept="image/*"
-    className="opacity-0 absolute inset-0"
-  />
-  {imageURL ? (
-    <img className="w-full" src={imageURL} alt="Uploaded Image" />
-  ) : (
-    <FaCamera className="camera-icon transition-blur group-hover:blur-sm " size={42} />
-  )}
-  <div className="absolute inset-0 flex justify-center items-center text-black opacity-0 group-hover:opacity-100 transition-opacity">
-    Add Image
-  </div>
-</div>
-
-              </div>
-              <div
-                style={{ maxWidth: "13%", maxHeight: "80%" }}
-                class="relative  text-white p-2 rounded border border-black   cursor-pointer"
-              >
-                <div className=" flex justify-center items-center">
-                  <input
-                    type="file"
-                    onChange={handleImageUpload2}
-                    accept="image/*"
-                    class="opacity-0 absolute inset-0 "
-                  />
-
-                  <img className=" w-full " src={imageURL2} alt="Upload Icon" />
+                <div className="flex justify-center items-center w-full relative group">
+                  <label className="flex justify-center items-center w-full relative group">
+                    <input
+                      type="file"
+                      onChange={handleImageUpload}
+                      accept="image/*"
+                      className="opacity-0 absolute inset-0"
+                    />
+                    {imageURL ? (
+                      <img
+                        className="w-full h-3/4 max-w-full max-h-full" // Add these styles
+                        src={imageURL}
+                        alt="Uploaded Image"
+                      />
+                    ) : (
+                      <BsFillImageFill
+                        className="camera-icon transition-blur group-hover:blur-sm "
+                        size={48}
+                      />
+                    )}
+                    <div className="absolute inset-0 flex justify-center items-center text-black opacity-0 group-hover:opacity-100 transition-opacity animate-fade-in">
+                      <AiOutlineCloudUpload size={40} />
+                    </div>
+                  </label>
                 </div>
               </div>
               <div
-                style={{ maxWidth: "13%", maxHeight: "80%" }}
-                class="relative  text-white p-2 rounded border border-black   cursor-pointer"
+                style={{ marginLeft: "10%", maxWidth: "13%", maxHeight: "80%" }}
+                class="relative   text-white p-2 rounded border border-black   cursor-pointer"
               >
-                <div className=" flex justify-center items-center">
-                  <input
-                    type="file"
-                    onChange={handleImageUpload3}
-                    accept="image/*"
-                    class="opacity-0 absolute inset-0 "
-                  />
-
-                  <img className="  w-full" src={imageURL3} alt="Upload Icon" />
+                <div className="flex justify-center items-center w-full relative group">
+                  <label className="flex justify-center items-center w-full relative group">
+                    <input
+                      type="file"
+                      onChange={handleImageUpload2}
+                      accept="image/*"
+                      className="opacity-0 absolute inset-0"
+                    />
+                    {imageURL2 ? (
+                      <img
+                        className="w-full h-3/4 max-w-full max-h-full" // Add these styles
+                        src={imageURL2}
+                        alt="Uploaded Image"
+                      />
+                    ) : (
+                      <BsFillImageFill
+                        className="camera-icon transition-blur group-hover:blur-sm "
+                        size={48}
+                      />
+                    )}
+                    <div className="absolute inset-0 flex justify-center items-center text-black opacity-0 group-hover:opacity-100 transition-opacity animate-fade-in">
+                      <AiOutlineCloudUpload size={40} />
+                    </div>
+                  </label>
                 </div>
               </div>
               <div
-                style={{ maxWidth: "13%", maxHeight: "80%" }}
-                class="relative  text-white p-2 rounded border border-black   cursor-pointer"
+                style={{ marginLeft: "10%", maxWidth: "13%", maxHeight: "80%" }}
+                class="relative   text-white p-2 rounded border border-black   cursor-pointer"
               >
-                <div className=" flex justify-center items-center">
-                  <input
-                    type="file"
-                    onChange={handleImageUpload4}
-                    accept="image/*"
-                    class="opacity-0 absolute inset-0 "
-                  />
-
-                  <img
-                    className="  w-full pb-3"
-                    src={imageURL4}
-                    alt="Upload Icon"
-                  />
+                <div className="flex justify-center items-center w-full relative group">
+                  <label className="flex justify-center items-center w-full relative group">
+                    <input
+                      type="file"
+                      onChange={handleImageUpload3}
+                      accept="image/*"
+                      className="opacity-0 absolute inset-0"
+                    />
+                    {imageURL3 ? (
+                      <img
+                        className="w-full h-3/4 max-w-full max-h-full" // Add these styles
+                        src={imageURL3}
+                        alt="Uploaded Image"
+                      />
+                    ) : (
+                      <BsFillImageFill
+                        className="camera-icon transition-blur group-hover:blur-sm "
+                        size={48}
+                      />
+                    )}
+                    <div className="absolute inset-0 flex justify-center items-center text-black opacity-0 group-hover:opacity-100 transition-opacity animate-fade-in">
+                      <AiOutlineCloudUpload size={40} />
+                    </div>
+                  </label>
                 </div>
               </div>
               <div
-                style={{ maxWidth: "13%", maxHeight: "80%" }}
-                class="relative  text-white p-2 rounded border border-black cursor-pointer"
+                style={{ marginLeft: "10%", maxWidth: "13%", maxHeight: "80%" }}
+                class="relative   text-white p-2 rounded border border-black   cursor-pointer"
               >
-                <div className=" flex justify-center items-center">
-                  <input
-                    type="file"
-                    onChange={handleImageUpload5}
-                    accept="image/*"
-                    class="opacity-0 absolute inset-0 "
-                  />
-
-                  <img className="  w-full" src={imageURL5} alt="Upload Icon" />
+                <div className="flex justify-center items-center w-full relative group">
+                  <label className="flex justify-center items-center w-full relative group">
+                    <input
+                      type="file"
+                      onChange={handleImageUpload4}
+                      accept="image/*"
+                      className="opacity-0 absolute inset-0"
+                    />
+                    {imageURL4 ? (
+                      <img
+                        className="w-full h-3/4 max-w-full max-h-full" 
+                        src={imageURL4}
+                        alt="Uploaded Image"
+                      />
+                    ) : (
+                      <BsFillImageFill
+                        className="camera-icon transition-blur group-hover:blur-sm "
+                        size={48}
+                      />
+                    )}
+                    <div className="absolute inset-0 flex justify-center items-center text-black opacity-0 group-hover:opacity-100 transition-opacity animate-fade-in">
+                      <AiOutlineCloudUpload size={40} />
+                    </div>
+                  </label>
+                </div>
+              </div>
+              <div
+                style={{ marginLeft: "10%", maxWidth: "13%", maxHeight: "80%" }}
+                class="relative   text-white p-2 rounded border border-black   cursor-pointer"
+              >
+                <div className="flex justify-center items-center w-full relative group">
+                  <label className="flex justify-center items-center w-full relative group">
+                    <input
+                      type="file"
+                      onChange={handleImageUpload5}
+                      accept="image/*"
+                      className="opacity-0 absolute inset-0"
+                    />
+                    {imageURL5 ? (
+                      <img
+                        className="w-full h-3/4 max-w-full max-h-full" 
+                        src={imageURL5}
+                        alt="Uploaded Image"
+                      />
+                    ) : (
+                      <BsFillImageFill
+                        className="camera-icon transition-blur group-hover:blur-sm "
+                        size={48}
+                      />
+                    )}
+                    <div className="absolute inset-0 flex justify-center items-center text-black opacity-0 group-hover:opacity-100 transition-opacity animate-fade-in">
+                      <AiOutlineCloudUpload size={40} />
+                    </div>
+                  </label>
                 </div>
               </div>
             </div>
