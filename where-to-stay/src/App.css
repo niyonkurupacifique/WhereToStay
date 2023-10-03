@@ -57,4 +57,9 @@
   transition: transform 0.3s ease;
   }
   
+  .camera-icon {
+    color: rgba(0, 0, 255, 0.289);
+    width: 200px
+  }
+  
   
