@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "antd": "^5.9.1",
-    "leaflet": "^1.9.4",
-    "react-leaflet": "^4.2.1"
-  }
-}
