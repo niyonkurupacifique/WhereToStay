@@ -153,7 +153,7 @@ const handleMouseLeav=()=>{
   <div className="relative h-1/3 ">
     <img className="brightness-50 h-[200px] w-[1250px] " src={bodyPic} alt="" />
     <HideOn atHeight height={2}>
-    <div className="w-full inset-x-0  top-20  absolute flex justify-center items-center">
+    <div className="w-full inset-x-0   top-16  absolute flex justify-center items-center">
       <span className="text-center font-txtFontFamily text-txtFontSize font-headerFontWeight leading-txtlineHeight tracking-txtLetterSpacing text-white mt-[-88px]">Find your dream rental in Kigali</span>
      </div>
      </HideOn>
