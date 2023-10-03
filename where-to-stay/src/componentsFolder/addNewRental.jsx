@@ -395,9 +395,9 @@ const AddnewRental = () => {
         <div style={{ marginLeft: "38%" }} className="  mt-28 space-y-4">
           <div className=" flex  space-x-10">
             <div className=" mt-4">Upload Photo</div>
-            <div className="flex space-x-7 ">
+            <div className="flex space-x-7" style={{ marginLeft: '21%' }}>
               <div
-                style={{ marginLeft: "10%", maxWidth: "13%", maxHeight: "80%" }}
+                style={{ marginLeft: "1%", maxWidth: "6%", maxHeight: "80%" }}
                 class="relative   text-white p-2 rounded border border-black   cursor-pointer"
               >
                 <div className="flex justify-center items-center w-full relative group">
@@ -410,7 +410,7 @@ const AddnewRental = () => {
                     />
                     {imageURL ? (
                       <img
-                        className="w-full h-3/4 max-w-full max-h-full" // Add these styles
+                        className="w-full h-full max-w-full max-h-full pb-4" // Add these styles
                         src={imageURL}
                         alt="Uploaded Image"
                       />
@@ -427,7 +427,7 @@ const AddnewRental = () => {
                 </div>
               </div>
               <div
-                style={{ marginLeft: "10%", maxWidth: "13%", maxHeight: "80%" }}
+                style={{ marginLeft: "1%", maxWidth: "6%", maxHeight: "80%" }}
                 class="relative   text-white p-2 rounded border border-black   cursor-pointer"
               >
                 <div className="flex justify-center items-center w-full relative group">
@@ -457,7 +457,7 @@ const AddnewRental = () => {
                 </div>
               </div>
               <div
-                style={{ marginLeft: "10%", maxWidth: "13%", maxHeight: "80%" }}
+                style={{ marginLeft: "1%", maxWidth: "6%", maxHeight: "80%" }}
                 class="relative   text-white p-2 rounded border border-black   cursor-pointer"
               >
                 <div className="flex justify-center items-center w-full relative group">
@@ -487,7 +487,7 @@ const AddnewRental = () => {
                 </div>
               </div>
               <div
-                style={{ marginLeft: "10%", maxWidth: "13%", maxHeight: "80%" }}
+                style={{ marginLeft: "1%", maxWidth: "6%", maxHeight: "80%" }}
                 class="relative   text-white p-2 rounded border border-black   cursor-pointer"
               >
                 <div className="flex justify-center items-center w-full relative group">
@@ -517,7 +517,7 @@ const AddnewRental = () => {
                 </div>
               </div>
               <div
-                style={{ marginLeft: "10%", maxWidth: "13%", maxHeight: "80%" }}
+                style={{ marginLeft: "1%", maxWidth: "6%", maxHeight: "80%" }}
                 class="relative   text-white p-2 rounded border border-black   cursor-pointer"
               >
                 <div className="flex justify-center items-center w-full relative group">
@@ -612,20 +612,7 @@ const AddnewRental = () => {
               class="block  p-4 text-gray-900 border  border-b-mycolor rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             />
           </div>
-          <div class="mb-6 flex space-x-16">
-            <label
-              for="large-input"
-              class="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Rent Period
-            </label>
-            <input
-              style={{ width: "55%", marginLeft: "19%" }}
-              type="text"
-              id="large-input"
-              class="block  p-4 text-gray-900 border  border-b-mycolor rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            />
-          </div>
+
           <div class="mb-6 flex space-x-16">
             <label
               for="large-input"
@@ -643,9 +630,9 @@ const AddnewRental = () => {
               class="block  p-4 text-gray-900 border  border-b-mycolor rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               name=""
             >
-              <option value="ghetto">ghetto</option>
-              <option value="apartment">apartment</option>
-              <option value="home">home</option>
+              <option value="ghetto">Ghetto</option>
+              <option value="apartment">Apartment</option>
+              <option value="home">Home</option>
             </select>
           </div>
           <div class="mb-6 flex space-x-16">
