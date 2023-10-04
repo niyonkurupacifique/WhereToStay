@@ -8,9 +8,10 @@ const MessageParser = ({ children, actions }) => {
       else if (message.includes('amakuru')) {
         actions.handleamakuru();
       }
-    else  if (message.includes('dog')) {
+    else  if (message.includes('house')) {
         actions.handleDog();
       }
+     
       else{
         actions.handleElse()
       }

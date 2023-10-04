@@ -424,7 +424,7 @@ const LandLoadDashboard=()=>{
          <div>
             <img style={{width:'70%'}} src={item.imageUrls[0]} alt="" />
          </div>
-         <div className=" mt-4 ml-7 font-txtFontFamily text-txtbodyFontsize font-headerFontWeight leading-txtbodylineHeight tracking-txtbodyLetterspacing text-txthecolor">Gasabo, Bumbogo Home house</div>
+         <div className=" mt-4 ml-7 font-txtFontFamily text-txtbodyFontsize font-headerFontWeight leading-txtbodylineHeight tracking-txtbodyLetterspacing text-txthecolor">{item.location}, {item.property_type}</div>
          <div className=" space-y-5 ml-1 mt-3">
          <div className=" flex  space-x-16 font-headerFontFamily font-txtbodyFontWeight leading-anotherLineHeight tracking-txtbodyLetterspacing text-txthecolor">
          <div className=" flex space-x-3">
