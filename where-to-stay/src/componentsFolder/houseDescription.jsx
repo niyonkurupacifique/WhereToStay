@@ -175,10 +175,10 @@ const HouseDescription = () => {
                   </div>
                   <div className=" font-txtFontFamily text-txtbodyFontsize font-txtbodyFontWeight leading-txtbodylineHeight tracking-txttttttttttttttttttbodyLetterspacing">
                     <div>
-                      <span>Address: {houseDescriptionById.location}</span>
+                      <span>Address: {houseDescriptionById.street_address}</span>
                     </div>
                     <div>
-                      <span>District: Gasabo</span>
+                      <span>City: {houseDescriptionById.street_address} </span>
                     </div>
                     <div>
                       <span>Sector: Bumbogo</span>
