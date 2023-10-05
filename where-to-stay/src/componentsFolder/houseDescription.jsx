@@ -35,6 +35,8 @@ const divStyle = {
   height: "400px",
 };
 
+
+
 const HouseDescription = () => {
   const [houseDescriptionById, setHouseDescriptionById] = useState(null);
   const userID = Cookies.get("userID");
@@ -72,6 +74,10 @@ const HouseDescription = () => {
     getHouseById();
     console.log(houseDescriptionById);
   }, []);
+
+ const propertyLatitude = houseDescriptionById?.location[0];
+const propertyLongitude =  houseDescriptionById?.location[1];
+
   return (
     <div className=" w-full">
       <Header></Header>
@@ -223,7 +229,7 @@ const HouseDescription = () => {
               </div>
               <div>
               <MapContainer
-  center={[-1.9503097781668681, 30.133552819906043]}
+  center={[propertyLatitude, propertyLongitude]}
   zoom={15}
   style={{ width: "500px", height: "300px" }}
 >
@@ -239,7 +245,7 @@ const HouseDescription = () => {
   </LayersControl>
 
   <Marker
-    position={[-1.9503097781668681, 30.133552819906043]}
+    position={[propertyLatitude, propertyLongitude]}
     icon={customIcon}
   />
 </MapContainer>
