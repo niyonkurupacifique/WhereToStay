@@ -39,7 +39,9 @@ export default function Login() {
   const{setMessageType}=useContext(OpenModalContext)
   const [loading, setLoading] = useState(false);
   const{houseId}=useContext(OpenModalContext)
+  const { setOpenSignup } = useContext(OpenModalContext);
   const{setBookingStatus}=useContext(OpenModalContext)
+  const { setOpenLogin } = useContext(OpenModalContext);
    console.log("house id in login is",houseId)
  const navigate=useNavigate(Navigate)
  const handleclose=()=>{
@@ -115,7 +117,11 @@ e.preventDefault();
   }
 };
 
-
+const handleOpenSignup = () => {
+  setOpenSignup(true);
+  setOpen(false)
+  console.log("signup clicked")
+};
 
 
 
@@ -181,7 +187,7 @@ e.preventDefault();
                 <div className=' flex space-x-2 bg-white rounded-lg border-4  border-txtecolor '>
                   <div className='flex justify-center py-1 px-6 space-x-2  w-64'>
                 <div className=' mt-3'><img style={{width:'21px',height:'18px'}} src={signuplogo} alt="" /></div>
-                <div> <button className=' border-none mt-3  focus:outline-none font-txtFontFamily text-txtbodyFontsize font-headerFontWeight leading-txtbodylineHeight tracking-txtbodyLetterspacing'>Sign up</button> </div>
+                <div> <button   className=' border-none mt-3  focus:outline-none font-txtFontFamily text-txtbodyFontsize font-headerFontWeight leading-txtbodylineHeight tracking-txtbodyLetterspacing'>Sign up</button> </div>
                 </div>
                 </div>
                

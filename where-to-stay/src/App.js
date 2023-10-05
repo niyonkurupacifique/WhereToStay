@@ -30,10 +30,12 @@ function App() {
   const[messageType,setMessageType]=useState("")
   const[houseId,setHouseId]=useState(null)
   const[BookingStatus,setBookingStatus]=useState(false)
-  
+  const[landloardClicked,setLandLoadClicked]=useState(false)
+  const[studentsClicked,setStudentsClicked]=useState(false)
+  const[role,setRole]=useState("")
   return (
     <div>
-      <OpenModalContext.Provider value={{openLogin,setOpenLogin,open,setOpen,openSignup,setOpenSignup,openChat,setOpenChat,Message,setMessage,messageStatus,setmessageStatus,messageType,setMessageType,houseId,setHouseId,BookingStatus,setBookingStatus}}>
+      <OpenModalContext.Provider value={{role,setRole,studentsClicked,setStudentsClicked,landloardClicked,setLandLoadClicked,openLogin,setOpenLogin,open,setOpen,openSignup,setOpenSignup,openChat,setOpenChat,Message,setMessage,messageStatus,setmessageStatus,messageType,setMessageType,houseId,setHouseId,BookingStatus,setBookingStatus}}>
      <ChatWithUs></ChatWithUs>
      <Login></Login>
      <Signup></Signup>

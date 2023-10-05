@@ -38,6 +38,7 @@ export default function LoginFromAccount() {
   const { setMessage } = useContext(OpenModalContext);
   const { setMessageType } = useContext(OpenModalContext);
   const [loading, setLoading] = useState(false);
+  const{setOpenSignup}=useContext(OpenModalContext)
   const navigate = useNavigate(Navigate);
   const handleclose = () => {
     setOpenLogin(false);
@@ -256,7 +257,7 @@ export default function LoginFromAccount() {
                     </div>
                     <div>
                       {" "}
-                      <button className=" border-none mt-3  focus:outline-none font-txtFontFamily text-txtbodyFontsize font-headerFontWeight leading-txtbodylineHeight tracking-txtbodyLetterspacing">
+                      <button onClick={()=>{setOpenSignup(true);setOpenLogin(false)}} className=" border-none mt-3  focus:outline-none font-txtFontFamily text-txtbodyFontsize font-headerFontWeight leading-txtbodylineHeight tracking-txtbodyLetterspacing">
                         Sign up
                       </button>{" "}
                     </div>

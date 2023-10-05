@@ -38,14 +38,14 @@ const style = {
   p: 4,
 };
 
-export default function Signup() {
+export default function StudentsSignup() {
     const{openSignup}=useContext(OpenModalContext)
  const{setOpenSignup}=useContext(OpenModalContext)
   const[firstname,setFirstName]=useState("")
   const [secondname,setSecondname]=useState("")
   const[phoneNumber,setPhoneNumber]=useState("")
   const[email,setEmail]=useState("")
- const{role}=useContext(OpenModalContext)
+  const[role,setRole]=useState("landlord")
   const[password,setPassword]=useState("")
   const{setMessage}=useContext(OpenModalContext)
   const[confirmPassword,setConfirmPassword]=useState("")
@@ -55,11 +55,7 @@ export default function Signup() {
   const{open}=useContext(OpenModalContext)
  const{setOpen}=useContext(OpenModalContext)
  const [loading, setLoading] = useState(false);
- const{landloardClicked}=useContext(OpenModalContext)
- const{studentsClicked}=useContext(OpenModalContext)
-  const{setOpenLogin}=useContext(OpenModalContext)
   
-
  const handlecloseSignup=()=>{
     setOpenSignup(false)
  }
@@ -135,7 +131,6 @@ export default function Signup() {
       if (result2.message === "tenant registered successfully") {
         setmessageStatus(true);
         setMessage(result2.message)
-        setOpenLogin(true);
         setMessageType("success")
         setOpenSignup(false)
         setOpen(true)
@@ -165,10 +160,6 @@ export default function Signup() {
 
   return (
     <div>
-
-      {
-        console.log("role is:",role)
-      }
      {
               messageStatus&&(<ToastStatusExample></ToastStatusExample>)
             }
@@ -234,20 +225,10 @@ export default function Signup() {
                 <div className=' mt-3'><img style={{width:'21px',height:'18px'}} src={profilepng} alt="" /></div>
                 <div className=' '> 
                   <label className=' mt-5' htmlFor="role">role</label>
-                  {
-                    landloardClicked&&(
-                   <select  className=' ml-64' name="" id="">
+                  <select onChange={(e)=>{setRole(e.target.value)}} className=' ml-64' name="" id="">
                     <option value="landlord">landlord</option>
+                    <option value="student">student</option>
                   </select> 
-                    )
-                  }
-                  {
-                    studentsClicked&&(
-                      <select  className=' ml-64' name="" id="">
-                      <option value="landlord">student</option>
-                    </select> 
-                    )
-                  }
                 </div>
                 </div>
                 

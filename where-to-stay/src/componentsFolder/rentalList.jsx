@@ -18,7 +18,7 @@ import {HideOn} from 'react-hide-on-scroll'
  import Footer from "./footer";
 import { useState } from "react";
 
-const Home=()=>{
+const RentalList=()=>{
  
 const [allHouse,setAllHouse]=useState([])
 const[LocationaccountClicked,setLocationAccountClicked]=useState(false)
@@ -465,7 +465,7 @@ const handleMouseLeav=()=>{
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center">
                     <CiLocationOn size={25} color="blue" />
-                    <span className="ml-2">{item.city}</span>
+                    <span className="ml-2">{item.location}</span>
                   </div>
                   <div className="flex items-center">
                     <AiOutlineHome size={25} color="blue" />
@@ -525,7 +525,7 @@ const handleMouseLeav=()=>{
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center">
                   <CiLocationOn size={25} color="blue" />
-                  <span className="ml-2">{item.city}</span>
+                  <span className="ml-2">{item.location}</span>
                 </div>
                 <div className="flex items-center">
                   <AiOutlineHome size={25} color="blue" />
@@ -536,8 +536,7 @@ const handleMouseLeav=()=>{
            </div>
            </div>
            <div className=" flex space-x-8 max-md:space-x-1 sm:space-x-1 max-lg:space-x-2 font-headerFontFamily font-txtbodyFontWeight leading-anotherLineHeight tracking-txtbodyLetterspacing text-txthecolor">
-                   <div className=" flex  space-x-28">       
-           <div className=" flex pl-3 ">
+           <div className=" flex space-x-1">
               <div>
                  <MdBedroomParent color="blue" size={25} />
               </div>
@@ -545,7 +544,7 @@ const handleMouseLeav=()=>{
               {item.number_rooms}
               </div>
            </div>
-           <div className=" flex   ">
+           <div className=" flex space-x-3">
               <div>
                  <MdBathroom color="blue" size={25} />
               </div>
@@ -553,7 +552,6 @@ const handleMouseLeav=()=>{
                {item.number_of_bathrooms}
               </div>
             </div>
-            </div> 
             <div className="flex justify-between items-center">
               <div className="text-purple-700 font-semibold text-xl">
                 {item.price} Rwf
@@ -618,4 +616,4 @@ const handleMouseLeav=()=>{
       </>
     )
 }
-export default Home
+export default RentalList
