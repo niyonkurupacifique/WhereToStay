@@ -105,80 +105,80 @@ const handleMouseLeav=()=>{
     let filteredResults = allHouse;
   
     if (locationSelected !== "" && typeOfPropertySelected !== "") {
-      
+      //
       filteredResults = filteredResults.filter((item) => {
-        return item.location === locationSelected && item.property_type === typeOfPropertySelected;
+        return item.city === locationSelected && item.property_type === typeOfPropertySelected;
       });
     } 
      if(locationSelected!=="" && BedroomSelected!==""){
       filteredResults=filteredResults.filter((item)=>{
-        return item.location===locationSelected&&item.number_rooms==BedroomSelected
+        return item.city===locationSelected&&item.number_rooms==BedroomSelected
       })
     }
      if(locationSelected!=""&&bathroomSelected!==""){
       filteredResults=filteredResults.filter((item)=>{
-        return item.location===locationSelected&&item.number_of_bathrooms==bathroomSelected
+        return item.city===locationSelected&&item.number_of_bathrooms==bathroomSelected
       })
     }
      if(locationSelected!=""&&priceRangeAmount!==""){
       filteredResults=filteredResults.filter((item)=>{
-        return item.location===locationSelected&&item.price>=minPrice&&item.price<=maxPrice
+        return item.city===locationSelected&&item.price>=minPrice&&item.price<=maxPrice
       })
     }
      if(locationSelected!="" && typeOfPropertySelected!="" && BedroomSelected!=="")
     {
      filteredResults=filteredResults.filter((item)=>{
-        return item.location===locationSelected&&item.property_type===typeOfPropertySelected&&item.number_rooms==BedroomSelected
+        return item.city===locationSelected&&item.property_type===typeOfPropertySelected&&item.number_rooms==BedroomSelected
      })  
     }
     if(locationSelected!=""&&typeOfPropertySelected!=""&&bathroomSelected!=""){
       filteredResults=filteredResults.filter((item)=>{
-        return item.location===locationSelected&&item.property_type===typeOfPropertySelected&&item.number_of_bathrooms==bathroomSelected
+        return item.city===locationSelected&&item.property_type===typeOfPropertySelected&&item.number_of_bathrooms==bathroomSelected
       })
     }
      if(locationSelected!==""&&typeOfPropertySelected!==""&&priceRangeAmount!==""){
       filteredResults=filteredResults.filter((item)=>{
-        return item.location===locationSelected&&item.property_type===typeOfPropertySelected&&item.price>=minPrice&&item.price<=maxPrice
+        return item.city===locationSelected&&item.property_type===typeOfPropertySelected&&item.price>=minPrice&&item.price<=maxPrice
       })
     }
     if(locationSelected!==""&&BedroomSelected!==""&&bathroomSelected!==""){
       filteredResults=filteredResults.filter((item)=>{
-      return item.location===locationSelected&&item.number_rooms==BedroomSelected&&item.number_of_bathrooms==bathroomSelected
+      return item.city===locationSelected&&item.number_rooms==BedroomSelected&&item.number_of_bathrooms==bathroomSelected
       })
     }
     if(locationSelected!==""&&BedroomSelected!==""&&priceRangeAmount!=="")
     {
       filteredResults=filteredResults.filter((item)=>{
-    return item.location===locationSelected&&item.number_rooms==BedroomSelected&&item.price>=minPrice&&item.price<=maxPrice
+    return item.city===locationSelected&&item.number_rooms==BedroomSelected&&item.price>=minPrice&&item.price<=maxPrice
       })
     }
     if(locationSelected!==""&&bathroomSelected!==""&&priceRangeAmount!=="")
     {
       filteredResults=filteredResults.filter((item)=>{
-   return item.location===locationSelected&&item.number_of_bathrooms==bathroomSelected&&item.price>=minPrice&&item.price<=maxPrice
+   return item.city===locationSelected&&item.number_of_bathrooms==bathroomSelected&&item.price>=minPrice&&item.price<=maxPrice
       })
     }
     if(locationSelected!==""&&typeOfPropertySelected!==""&&BedroomSelected!==""&&bathroomSelected!==""){
       filteredResults=filteredResults.filter((item)=>{
-        return item.location===locationSelected&&item.property_type===typeOfPropertySelected&&item.number_rooms==BedroomSelected&&item.number_of_bathrooms==bathroomSelected
+        return item.city===locationSelected&&item.property_type===typeOfPropertySelected&&item.number_rooms==BedroomSelected&&item.number_of_bathrooms==bathroomSelected
       })
     }
     if(locationSelected!==""&&typeOfPropertySelected!==""&&BedroomSelected!==""&&priceRangeAmount!=="")
     {
       filteredResults=filteredResults.filter((item)=>{
-    return item.location===locationSelected&&item.property_type===typeOfPropertySelected&&item.number_rooms==BedroomSelected&&item.price>=minPrice&&item.price<=maxPrice
+    return item.city===locationSelected&&item.property_type===typeOfPropertySelected&&item.number_rooms==BedroomSelected&&item.price>=minPrice&&item.price<=maxPrice
       })
     }
     if(locationSelected!==""&&typeOfPropertySelected!==""&&bathroomSelected!==""&&priceRangeAmount!=="")
     {
       filteredResults=filteredResults.filter((item)=>{
-   return item.location===locationSelected&&item.property_type===typeOfPropertySelected&&item.number_of_bathrooms==bathroomSelected&&item.price>=minPrice&&item.price<=maxPrice
+   return item.city===locationSelected&&item.property_type===typeOfPropertySelected&&item.number_of_bathrooms==bathroomSelected&&item.price>=minPrice&&item.price<=maxPrice
       })
     }
     if(locationSelected!==""&&typeOfPropertySelected!==""&&BedroomSelected!==""&&bathroomSelected!==""&&priceRangeAmount!=="")
     {
       filteredResults=filteredResults.filter((item)=>{
-        return item.location===locationSelected&&item.property_type===typeOfPropertySelected&&item.number_rooms==BedroomSelected&&item.number_of_bathrooms==bathroomSelected&&item.price>=minPrice&&item.price<=maxPrice
+        return item.city===locationSelected&&item.property_type===typeOfPropertySelected&&item.number_rooms==BedroomSelected&&item.number_of_bathrooms==bathroomSelected&&item.price>=minPrice&&item.price<=maxPrice
       })
     }
     if(typeOfPropertySelected!==""&&BedroomSelected!=="")
@@ -252,7 +252,7 @@ const handleMouseLeav=()=>{
     else {
      
       if (locationSelected !== "") {
-        filteredResults = filteredResults.filter((item) => item.location === locationSelected);
+        filteredResults = filteredResults.filter((item) => item.city === locationSelected);
       }
   
       if (typeOfPropertySelected !== "") {
@@ -345,9 +345,9 @@ const handleMouseLeav=()=>{
     <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
      
      {
-      [...new Set(allHouseToFilter.map((item)=>item.location))].map((location=>(
+      [...new Set(allHouseToFilter.map((item)=>item.city))].map((city=>(
         <li>
-        <button onClick={()=>{ setLocationSelected(location);setLocationAccountClicked(false)}}  class="block px-4 py-2 hover:bg-blue-500  dark:hover:bg-gray-600 dark:hover:text-white">{location}</button>
+        <button onClick={()=>{ setLocationSelected(city);setLocationAccountClicked(false)}}  class="block px-4 py-2 hover:bg-blue-500  dark:hover:bg-gray-600 dark:hover:text-white">{city}</button>
       </li>
       ))
 
@@ -540,16 +540,16 @@ const handleMouseLeav=()=>{
           >
             <img
               src={item.imageUrls[0]}
-              alt={item.location}
+              alt={item.city}
               className="w-full h-48 bject-cover object-center"
             />
             <div className="p-4">
-              <h2 className="text-xl font-semibold mb-2">{item.location}</h2>
+              <h2 className="text-xl font-semibold mb-2">{item.city}</h2>
               <div className="text-gray-600 mb-4">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center">
                     <CiLocationOn size={25} color="blue" />
-                    <span className="ml-2">{item.location}</span>
+                    <span className="ml-2">{item.city}</span>
                   </div>
                   <div className="flex items-center">
                     <AiOutlineHome size={25} color="blue" />
@@ -600,7 +600,7 @@ const handleMouseLeav=()=>{
         >
           <img
             src={item.imageUrls[0]}
-            alt={item.location}
+            alt={item.city}
             className="w-full h-48 bject-cover object-center"
           />
           <div className="p-4">
