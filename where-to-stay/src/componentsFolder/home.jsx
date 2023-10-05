@@ -405,12 +405,12 @@ const handleMouseLeav=()=>{
           className="w-full h-48 bject-cover object-center"
         />
         <div className="p-4">
-          <h2 className="text-xl font-semibold mb-2">{item.location}</h2>
+          <h2 className="text-xl font-semibold mb-2">{item.description}</h2>
           <div className="text-gray-600 mb-4">
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center">
                 <CiLocationOn size={25} color="blue" />
-                <span className="ml-2">{item.location}</span>
+                <span className="ml-2">{item.city}</span>
               </div>
               <div className="flex items-center">
                 <AiOutlineHome size={25} color="blue" />
@@ -426,7 +426,7 @@ const handleMouseLeav=()=>{
                <MdBedroomParent color="blue" size={25} />
             </div>
             <div>
-            {item.number_rooms}bedroom
+            {item.number_rooms} Bedrooms
             </div>
          </div>
          <div className=" flex space-x-3">
@@ -434,7 +434,7 @@ const handleMouseLeav=()=>{
                <MdBathroom color="blue" size={25} />
             </div>
             <div>
-             {item.number_of_bathrooms}bathrooms
+             {item.number_of_bathrooms} Bathrooms
             </div>
           </div>
           <div className="flex justify-between items-center">
