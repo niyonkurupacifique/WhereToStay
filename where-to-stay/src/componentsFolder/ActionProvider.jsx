@@ -27,7 +27,7 @@ const ActionProvider = ({ createChatBotMessage, setState, children }) => {
       };
       const handleDog = () => {
         const botMessage = createChatBotMessage(
-          "Here's a nice dog picture for you!",
+          "Here's a  picture of house we have!",
           {
             widget: 'dogPicture',
           }

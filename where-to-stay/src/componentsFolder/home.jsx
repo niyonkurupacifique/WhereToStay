@@ -13,6 +13,7 @@ import { useContext } from "react";
 import { OpenModalContext } from "./context";
 import {HideOn} from 'react-hide-on-scroll'
  import { ThreeDots } from "react-loader-spinner"; 
+ import {FaExclamationCircle} from 'react-icons/fa'
 
  import Footer from "./footer";
 import { useState } from "react";
@@ -31,7 +32,7 @@ const[locationSelected,setLocationSelected]=useState("")
 const[typeOfPropertySelected,setTypeOfPropertySelected]=useState("")
 const[BedroomSelected,setBedroomSelected]=useState("")
 const[bathroomSelected,setBathroomSelected]=useState("")
-const[priceRangeAmount,setPriceRangeAmount]=useState("0frw-50000frw")
+const[priceRangeAmount,setPriceRangeAmount]=useState("")
 const[filteredArray,setFilteredArray]=useState([])
 const[allHouseToFilter,setAllHouseToFilter]=useState([])
 console.log(priceRangeAmount)
@@ -97,22 +98,187 @@ const handleMouseLeav=()=>{
 
     const filterRange=priceRangeAmount
   const [minPriceStr, maxPriceStr] = filterRange.split('-');
-  const minPrice = parseFloat(minPriceStr.replace(/[^\d.]/g, ''));
-  const maxPrice = parseFloat(maxPriceStr.replace(/[^\d.]/g, ''));
+  const minPrice = priceRangeAmount!==""&&parseFloat(minPriceStr.replace(/[^\d.]/g, ''));
+  const maxPrice = priceRangeAmount!==""&&parseFloat(maxPriceStr.replace(/[^\d.]/g, ''));
   
-   const handleFilter=()=>{
-  const filtered=allHouse.filter((item)=>{
-      const locationMatch=item.location.toLowerCase().includes(locationSelected.toLowerCase());
-      const numberOfBedRoomMatch=item.number_rooms===BedroomSelected;
-      const numberOfBathRoomMatch=item.number_of_bathrooms===bathroomSelected;
-      return locationMatch&&numberOfBedRoomMatch&&numberOfBathRoomMatch;
-
+  const handleFiltering = () => {
+    let filteredResults = allHouse;
+  
+    if (locationSelected !== "" && typeOfPropertySelected !== "") {
+      
+      filteredResults = filteredResults.filter((item) => {
+        return item.location === locationSelected && item.property_type === typeOfPropertySelected;
+      });
+    } 
+     if(locationSelected!=="" && BedroomSelected!==""){
+      filteredResults=filteredResults.filter((item)=>{
+        return item.location===locationSelected&&item.number_rooms==BedroomSelected
+      })
+    }
+     if(locationSelected!=""&&bathroomSelected!==""){
+      filteredResults=filteredResults.filter((item)=>{
+        return item.location===locationSelected&&item.number_of_bathrooms==bathroomSelected
+      })
+    }
+     if(locationSelected!=""&&priceRangeAmount!==""){
+      filteredResults=filteredResults.filter((item)=>{
+        return item.location===locationSelected&&item.price>=minPrice&&item.price<=maxPrice
+      })
+    }
+     if(locationSelected!="" && typeOfPropertySelected!="" && BedroomSelected!=="")
+    {
+     filteredResults=filteredResults.filter((item)=>{
+        return item.location===locationSelected&&item.property_type===typeOfPropertySelected&&item.number_rooms==BedroomSelected
+     })  
+    }
+    if(locationSelected!=""&&typeOfPropertySelected!=""&&bathroomSelected!=""){
+      filteredResults=filteredResults.filter((item)=>{
+        return item.location===locationSelected&&item.property_type===typeOfPropertySelected&&item.number_of_bathrooms==bathroomSelected
+      })
+    }
+     if(locationSelected!==""&&typeOfPropertySelected!==""&&priceRangeAmount!==""){
+      filteredResults=filteredResults.filter((item)=>{
+        return item.location===locationSelected&&item.property_type===typeOfPropertySelected&&item.price>=minPrice&&item.price<=maxPrice
+      })
+    }
+    if(locationSelected!==""&&BedroomSelected!==""&&bathroomSelected!==""){
+      filteredResults=filteredResults.filter((item)=>{
+      return item.location===locationSelected&&item.number_rooms==BedroomSelected&&item.number_of_bathrooms==bathroomSelected
+      })
+    }
+    if(locationSelected!==""&&BedroomSelected!==""&&priceRangeAmount!=="")
+    {
+      filteredResults=filteredResults.filter((item)=>{
+    return item.location===locationSelected&&item.number_rooms==BedroomSelected&&item.price>=minPrice&&item.price<=maxPrice
+      })
+    }
+    if(locationSelected!==""&&bathroomSelected!==""&&priceRangeAmount!=="")
+    {
+      filteredResults=filteredResults.filter((item)=>{
+   return item.location===locationSelected&&item.number_of_bathrooms==bathroomSelected&&item.price>=minPrice&&item.price<=maxPrice
+      })
+    }
+    if(locationSelected!==""&&typeOfPropertySelected!==""&&BedroomSelected!==""&&bathroomSelected!==""){
+      filteredResults=filteredResults.filter((item)=>{
+        return item.location===locationSelected&&item.property_type===typeOfPropertySelected&&item.number_rooms==BedroomSelected&&item.number_of_bathrooms==bathroomSelected
+      })
+    }
+    if(locationSelected!==""&&typeOfPropertySelected!==""&&BedroomSelected!==""&&priceRangeAmount!=="")
+    {
+      filteredResults=filteredResults.filter((item)=>{
+    return item.location===locationSelected&&item.property_type===typeOfPropertySelected&&item.number_rooms==BedroomSelected&&item.price>=minPrice&&item.price<=maxPrice
+      })
+    }
+    if(locationSelected!==""&&typeOfPropertySelected!==""&&bathroomSelected!==""&&priceRangeAmount!=="")
+    {
+      filteredResults=filteredResults.filter((item)=>{
+   return item.location===locationSelected&&item.property_type===typeOfPropertySelected&&item.number_of_bathrooms==bathroomSelected&&item.price>=minPrice&&item.price<=maxPrice
+      })
+    }
+    if(locationSelected!==""&&typeOfPropertySelected!==""&&BedroomSelected!==""&&bathroomSelected!==""&&priceRangeAmount!=="")
+    {
+      filteredResults=filteredResults.filter((item)=>{
+        return item.location===locationSelected&&item.property_type===typeOfPropertySelected&&item.number_rooms==BedroomSelected&&item.number_of_bathrooms==bathroomSelected&&item.price>=minPrice&&item.price<=maxPrice
+      })
+    }
+    if(typeOfPropertySelected!==""&&BedroomSelected!=="")
+    {
+      filteredResults=filteredResults.filter((item)=>{
+        return item.property_type===typeOfPropertySelected&&item.number_rooms==BedroomSelected
+      })
+    }
+    if(typeOfPropertySelected!==""&&bathroomSelected!=="")
+    {
+      filteredResults=filteredResults.filter((item)=>{
+        return item.property_type===typeOfPropertySelected&&item.number_of_bathrooms==bathroomSelected
+      })
+    }
+    if(typeOfPropertySelected!==""&&priceRangeAmount!=="")
+    {
+      filteredResults=filteredResults.filter((item)=>{
+      return item.property_type===typeOfPropertySelected&&item.price>=minPrice&&item.price<=maxPrice
+      })
+    }
+    if(typeOfPropertySelected!==""&&BedroomSelected!==""&&bathroomSelected!=="")
+    {
+      filteredResults=filteredResults.filter((item)=>{
+     return item.property_type===typeOfPropertySelected&&item.number_rooms==BedroomSelected&&item.number_of_bathrooms==bathroomSelected
+      })
+    }
+    if(typeOfPropertySelected!==""&&BedroomSelected!==""&&priceRangeAmount!=="")
+    {
+      filteredResults=filteredResults.filter((item)=>{
+       return item.property_type===typeOfPropertySelected&&item.number_rooms==BedroomSelected&&item.price>=minPrice&&item.price<=maxPrice
+      })
+    }
+    if(typeOfPropertySelected!==""&&bathroomSelected!==""&&priceRangeAmount!=="")
+    {
+     filteredResults=filteredResults.filter((item)=>{
+      return item.property_type===typeOfPropertySelected&&item.number_of_bathrooms==bathroomSelected&&item.price>=minPrice&&item.price<=maxPrice
      })
-     setFilteredArray(filtered)
-     console.log(" filterd is:",filtered )
-   }
+    }
+    if(typeOfPropertySelected!==""&&BedroomSelected!==""&&bathroomSelected!==""&&priceRangeAmount!=="")
+    {
+      filteredResults=filteredResults.filter((item)=>{
+        return item.property_type===typeOfPropertySelected&&item.number_rooms==BedroomSelected&&item.number_of_bathrooms==bathroomSelected&&item.price>=minPrice&&item.price<=maxPrice
+      })
+    }
+    if(BedroomSelected!==""&&bathroomSelected!=="")
+    {
+      filteredResults=filteredResults.filter((item)=>{
+      return item.number_rooms==BedroomSelected&&item.number_of_bathrooms==bathroomSelected
+      })
+    }
+    if(BedroomSelected!==""&&priceRangeAmount!=="")
+    {
+      filteredResults=filteredResults.filter((item)=>{
+      return item.number_rooms==BedroomSelected&&item.price>=minPrice&&item.price<=maxPrice
+      })
+    }
+    if(BedroomSelected!==""&&bathroomSelected!==""&&priceRangeAmount!=="")
+    {
+      filteredResults=filteredResults.filter((item)=>{
+    return item.number_rooms==BedroomSelected&&item.number_of_bathrooms==bathroomSelected&&item.price>=minPrice&&item.price<=maxPrice
+      })
+    }
+    if(bathroomSelected!==""&&priceRangeAmount!=="")
+    {
+      filteredResults=filteredResults.filter((item)=>{
+      return item.number_of_bathrooms==bathroomSelected&&item.price>=minPrice&&item.price<=maxPrice
+      })
+    }
     
-
+    
+    else {
+     
+      if (locationSelected !== "") {
+        filteredResults = filteredResults.filter((item) => item.location === locationSelected);
+      }
+  
+      if (typeOfPropertySelected !== "") {
+        filteredResults = filteredResults.filter((item) => item.property_type === typeOfPropertySelected);
+      }
+  
+      if (BedroomSelected !== "") {
+        filteredResults = filteredResults.filter((item) => item.number_rooms === BedroomSelected);
+      }
+  
+      if (bathroomSelected !== "") {
+        filteredResults = filteredResults.filter((item) => item.number_of_bathrooms === bathroomSelected);
+      }
+  
+      if (priceRangeAmount !== "") {
+        filteredResults = filteredResults.filter((item) => item.price >= minPrice && item.price <= maxPrice);
+      }
+    }
+  
+    return filteredResults;
+  };
+  
+    
+ useEffect(()=>{
+  handleFiltering()
+ },[locationSelected,typeOfPropertySelected,bathroomSelected,BedroomSelected,priceRangeAmount])
 
     return(
         <>
@@ -320,7 +486,7 @@ const handleMouseLeav=()=>{
       <button  onClick={()=>{setPriceRangeAmount("200000frw-400000frw");setPriceRange(false)}} class="block hover:bg-blue-400 px-4 py-2  dark:hover:bg-gray-600 dark:hover:text-white">200 000frw - 400 000 frw</button>
       </li>
       <li>
-      <button  onClick={()=>{setPriceRangeAmount("4000000frw-200000000frw");setPriceRange(false)}} class="block hover:bg-blue-400 px-4 py-2  dark:hover:bg-gray-600 dark:hover:text-white">Above 400 000 frw</button>
+      <button  onClick={()=>{setPriceRangeAmount("400000frw-200000000frw");setPriceRange(false)}} class="block hover:bg-blue-400 px-4 py-2  dark:hover:bg-gray-600 dark:hover:text-white">Above 400 000 frw</button>
       </li>
 
     
@@ -346,40 +512,7 @@ const handleMouseLeav=()=>{
 
      </div>
   </div>
-  {/* <div onClick={handleHouseClicked} className=" flex justify-between mt-28">
-    <div className=" shadow-lg shadow-black">
-      <div>
-        <img src={housePic} alt="" />
-      </div>
-    </div>
-    <div className=" shadow-lg shadow-black">
-      <div>
-        <img src={housePic} alt="" />
-      </div>
-    </div>
-    <div className=" shadow-lg shadow-black">
-      <div>
-        <img src={housePic} alt="" />
-      </div>
-    </div>
-  </div> */}
-  {/* <div className=" flex justify-between mt-10">
-    <div className=" shadow-lg shadow-black">
-      <div>
-        <img src={housePic} alt="" />
-      </div>
-    </div>
-    <div className=" shadow-lg shadow-black">
-      <div>
-        <img src={housePic} alt="" />
-      </div>
-    </div>
-    <div className=" shadow-lg shadow-black">
-      <div className=" shadow-lg shadow-black">
-        <img src={housePic} alt="" />
-      </div>
-    </div>
-  </div>   */}
+  
 
 {allHouse.length === 0 ? (
         <div className="bg-white p-4 flex justify-center">
@@ -394,66 +527,133 @@ const handleMouseLeav=()=>{
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-4">
           
-    {allHouse.map((item, index) => (
-      <div
-        key={index}
-        className="bg-white anime rounded-lg shadow-md overflow-hidden border border-gray-200"
-      >
-        <img
-          src={item.imageUrls[0]}
-          alt={item.location}
-          className="w-full h-48 bject-cover object-center"
-        />
-        <div className="p-4">
-          <h2 className="text-xl font-semibold mb-2">{item.description}</h2>
-          <div className="text-gray-600 mb-4">
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center">
-                <CiLocationOn size={25} color="blue" />
-                <span className="ml-2">{item.city}</span>
+    {
+      locationSelected!=="" || typeOfPropertySelected!=="" || bathroomSelected!=="" || BedroomSelected!=="" || priceRangeAmount!=""?(
+        handleFiltering().length===0?(<div style={{position:'absolute',marginLeft:'50%', top:300}} className=" w-full  ">
+        <FaExclamationCircle size={48} color="red" />
+        <p className=" ">No results found.</p>
+      </div>):
+        handleFiltering().map((item, index) => (
+          <div
+            key={index}
+            className="bg-white anime rounded-lg shadow-md overflow-hidden border border-gray-200"
+          >
+            <img
+              src={item.imageUrls[0]}
+              alt={item.location}
+              className="w-full h-48 bject-cover object-center"
+            />
+            <div className="p-4">
+              <h2 className="text-xl font-semibold mb-2">{item.location}</h2>
+              <div className="text-gray-600 mb-4">
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center">
+                    <CiLocationOn size={25} color="blue" />
+                    <span className="ml-2">{item.location}</span>
+                  </div>
+                  <div className="flex items-center">
+                    <AiOutlineHome size={25} color="blue" />
+                    <span className="ml-2">{item.property_type}</span>
+                  </div>
+                </div>
+               
+             </div>
+             </div>
+             <div className=" flex space-x-8 max-md:space-x-1 sm:space-x-1 max-lg:space-x-2 font-headerFontFamily font-txtbodyFontWeight leading-anotherLineHeight tracking-txtbodyLetterspacing text-txthecolor">
+             <div className=" flex space-x-1">
+                <div>
+                   <MdBedroomParent color="blue" size={25} />
+                </div>
+                <div>
+                {item.number_rooms}bedroom
+                </div>
+             </div>
+             <div className=" flex space-x-3">
+                <div>
+                   <MdBathroom color="blue" size={25} />
+                </div>
+                <div>
+                 {item.number_of_bathrooms}bathrooms
+                </div>
               </div>
-              <div className="flex items-center">
-                <AiOutlineHome size={25} color="blue" />
-                <span className="ml-2">{item.property_type}</span>
+              <div className="flex justify-between items-center">
+                <div className="text-purple-700 font-semibold text-xl">
+                  {item.price} Rwf
+                </div>
+                <button
+                  onClick={() => {
+                    navigate(`/housedescription/${item.id}`);
+                  }}
+                  type="button"
+                  className="focus:outline-none  bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 text-white font-medium rounded-lg px-4 py-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
+                >
+                  View House
+                </button>
               </div>
-            </div>
-           
-         </div>
-         </div>
-         <div className=" flex space-x-8 max-md:space-x-1 sm:space-x-1 max-lg:space-x-2 font-headerFontFamily font-txtbodyFontWeight leading-anotherLineHeight tracking-txtbodyLetterspacing text-txthecolor">
-         <div className=" flex space-x-1">
-            <div>
-               <MdBedroomParent color="blue" size={25} />
-            </div>
-            <div>
-            {item.number_rooms} Bedrooms
-            </div>
-         </div>
-         <div className=" flex space-x-3">
-            <div>
-               <MdBathroom color="blue" size={25} />
-            </div>
-            <div>
-             {item.number_of_bathrooms} Bathrooms
             </div>
           </div>
-          <div className="flex justify-between items-center">
-            <div className="text-purple-700 font-semibold text-xl">
-              {item.price} Rwf
+        ))
+      ):( allHouse.map((item, index) => (
+        <div
+          key={index}
+          className="bg-white anime rounded-lg shadow-md overflow-hidden border border-gray-200"
+        >
+          <img
+            src={item.imageUrls[0]}
+            alt={item.location}
+            className="w-full h-48 bject-cover object-center"
+          />
+          <div className="p-4">
+            <h2 className="text-xl font-semibold mb-2">{item.location}</h2>
+            <div className="text-gray-600 mb-4">
+              <div className="flex items-center justify-between mb-2">
+                <div className="flex items-center">
+                  <CiLocationOn size={25} color="blue" />
+                  <span className="ml-2">{item.location}</span>
+                </div>
+                <div className="flex items-center">
+                  <AiOutlineHome size={25} color="blue" />
+                  <span className="ml-2">{item.property_type}</span>
+                </div>
+              </div>
+             
+           </div>
+           </div>
+           <div className=" flex space-x-8 max-md:space-x-1 sm:space-x-1 max-lg:space-x-2 font-headerFontFamily font-txtbodyFontWeight leading-anotherLineHeight tracking-txtbodyLetterspacing text-txthecolor">
+           <div className=" flex space-x-1">
+              <div>
+                 <MdBedroomParent color="blue" size={25} />
+              </div>
+              <div>
+              {item.number_rooms}bedroom
+              </div>
+           </div>
+           <div className=" flex space-x-3">
+              <div>
+                 <MdBathroom color="blue" size={25} />
+              </div>
+              <div>
+               {item.number_of_bathrooms}bathrooms
+              </div>
             </div>
-            <button
-              onClick={() => {
-                navigate(`/housedescription/${item.id}`);
-              }}
-              type="button"
-              className="focus:outline-none  bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 text-white font-medium rounded-lg px-4 py-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
-            >
-              View House
-            </button>
+            <div className="flex justify-between items-center">
+              <div className="text-purple-700 font-semibold text-xl">
+                {item.price} Rwf
+              </div>
+              <button
+                onClick={() => {
+                  navigate(`/housedescription/${item.id}`);
+                }}
+                type="button"
+                className="focus:outline-none  bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 text-white font-medium rounded-lg px-4 py-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
+              >
+                View House
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    ))}
+      )))
+    }
   </div>
   )}
 </div>
