@@ -19,6 +19,7 @@ import LoginFromAccount from './componentsFolder/loginFromAccount';
  import ALLhouses from './componentsFolder/Allhouses';
  import HouseDescriptionWhenLogedIn from './componentsFolder/HouseDescriptionWhenLogin';
  import BookingStatusPage from './componentsFolder/bookingStatusPage';
+ import RentalList from './componentsFolder/rentalList';
 
 function App() {
   const[open,setOpen]=useState(false)
@@ -49,6 +50,7 @@ function App() {
                 <Route path="/housedescription/:houseId" element={<HouseDescription></HouseDescription>} />
                 <Route path="/addnewrental/:newToken" element={<AddnewRental></AddnewRental>} />
                 <Route path="/orders" element={<Orders></Orders>} />
+                <Route path="/rentallist/:newToken" element={<RentalList></RentalList>} />
                 <Route path="/userDashboard/:houseId/:token" element={<UserDashboard></UserDashboard>} />
                 <Route path="/studentstatuspage/:Newtoken" element={<StudentStatusPage></StudentStatusPage>} />
                 <Route path="/bookingstatuspage/:newToken2/:itemId" element={<BookingStatusPage></BookingStatusPage>} />

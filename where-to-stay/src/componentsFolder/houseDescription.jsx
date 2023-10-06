@@ -10,7 +10,7 @@ import "react-slideshow-image/dist/styles.css";
 import Footer from "./footer";
 import Cookies from "js-cookie";
 import { useParams } from "react-router-dom";
-import { MapContainer, TileLayer, Marker, LayersControl } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, LayersControl, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
@@ -184,11 +184,9 @@ const propertyLongitude =  houseDescriptionById?.location[1];
                       <span>Address: {houseDescriptionById.street_address}</span>
                     </div>
                     <div>
-                      <span>City: {houseDescriptionById.street_address} </span>
+                      <span>City: {houseDescriptionById.city} </span>
                     </div>
-                    <div>
-                      <span>Sector: Bumbogo</span>
-                    </div>
+                   
                   </div>
                 </div>
                 <div>
@@ -288,7 +286,7 @@ const propertyLongitude =  houseDescriptionById?.location[1];
         </div>
       )}
 
-      <Footer></Footer>
+      {/* <Footer></Footer> */}
     </div>
   );
 };

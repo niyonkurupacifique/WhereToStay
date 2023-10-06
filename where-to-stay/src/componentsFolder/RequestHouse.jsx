@@ -125,7 +125,7 @@ export default function Orders() {
               <TableRow >
               <TableCell style={{width:'5%'}}>{currentDate.toString()}</TableCell>
                 <TableCell>{houseDescriptionById.property_type}</TableCell>
-                <TableCell>{houseDescriptionById.location}</TableCell>
+                <TableCell>{houseDescriptionById.city}</TableCell>
                 <TableCell>{houseDescriptionById.number_rooms}</TableCell>
                 <TableCell>{houseDescriptionById.number_of_bathrooms}</TableCell>
                 <TableCell>{houseDescriptionById.User.firstName+"   "+houseDescriptionById.User.lastName}</TableCell>
@@ -133,7 +133,7 @@ export default function Orders() {
                 <TableCell>{houseDescriptionById.price}/month</TableCell>
                 <TableCell className=' relative'>
                     <div style={{top:'42%'}} className=' absolute flex  left-14 '>
-                    <button onClick={SendBookingRequest} type="button" class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Send</button>
+                    <button onClick={SendBookingRequest} type="button" class="text-white bg-gradient-to-r from-purple-500 via-purple-600 to-purple-700 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-purple-300 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Book</button>
                    <button type="button" class="text-white bg-gradient-to-r  from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2">Cancel</button>
                     </div>
                 </TableCell>

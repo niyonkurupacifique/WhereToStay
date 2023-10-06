@@ -81,7 +81,7 @@ export default function LoginFromAccount() {
           console.log("token is", result2.token);
           const token=result2.token 
        const newToken=token
-          navigate(`/dashboard/${newToken}`);
+          navigate(`/rentallist/${newToken}`);
         } else {
           setmessageStatus(true);
           setMessage(result2.message);

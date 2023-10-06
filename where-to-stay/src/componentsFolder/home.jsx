@@ -287,6 +287,28 @@ const handleMouseLeav=()=>{
   handleFiltering()
  },[locationSelected,typeOfPropertySelected,bathroomSelected,BedroomSelected,priceRangeAmount])
 
+  const handleBathroom=(e)=>{
+  if(e.target.value=="") 
+  {
+    setBathroomSelected(e.target.value)
+  }
+  else{
+    setBathroomSelected(parseInt(e.target.value))
+  }
+  }
+
+
+  const handleBedroom=(e)=>{
+    if(e.target.value=="") 
+    {
+      setBedroomSelected(e.target.value)
+    }
+    else{
+      setBedroomSelected(parseInt(e.target.value))
+    }
+    }
+   
+
     return(
         <>
         <div className=" h-full mx-5">
@@ -310,6 +332,7 @@ const handleMouseLeav=()=>{
           <animate attributeName="r" values="2;4;2" dur="1s" begin="0.4s" repeatCount="indefinite" />
         </circle>
       </svg>
+
       
                 </div>):<div className='  mb-2 w-8'>
                 <svg  color="inherit" viewBox="0 0 32 32" class="css-1usdo54">
@@ -367,7 +390,7 @@ const handleMouseLeav=()=>{
             <div className="ml-9 text-black font-txtFontFamily font-txtbodyFontWeight text-txtbodyFontsize leading-txtbodylineHeight tracking-txtbodyLetterspacing">Bedrooms</div>
             <div>
             <div className="relative" > 
-            <select onChange={(e)=>{setBedroomSelected(e.target.value)}} className="relative ml-8 text-black rounded-none border-none" >   
+            <select onChange={handleBedroom} className="relative ml-8 text-black rounded-none border-none" >   
             <option value=""   class="text-black   rounded-lg  px-5  text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"><span  className=" font-txtFontFamily text-txtbodyFontsize font-txtbodyFontWeight leading-txtbodylineHeight tracking-txtbodyLetterspacing ">all</span></option>
             <option value="1"   class="text-black   rounded-lg  px-5  text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"><span  className=" font-txtFontFamily text-txtbodyFontsize font-txtbodyFontWeight leading-txtbodylineHeight tracking-txtbodyLetterspacing ">1</span></option>
             <option value="2"   class="text-black   rounded-lg  px-5  text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"><span  className=" font-txtFontFamily text-txtbodyFontsize font-txtbodyFontWeight leading-txtbodylineHeight tracking-txtbodyLetterspacing ">2</span></option>
@@ -383,7 +406,7 @@ const handleMouseLeav=()=>{
             <div className="ml-9 text-black font-txtFontFamily font-txtbodyFontWeight text-txtbodyFontsize leading-txtbodylineHeight tracking-txtbodyLetterspacing">Bathrooms</div>
             <div>
             <div className="relative" > 
-            <select onChange={(e)=>{setBedroomSelected(e.target.value)}} className="relative ml-8 text-black rounded-none border-none" >   
+            <select onChange={handleBathroom} className="relative ml-8 text-black rounded-none border-none" >   
             <option value=""   class="text-black   rounded-lg  px-5  text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"><span  className=" font-txtFontFamily text-txtbodyFontsize font-txtbodyFontWeight leading-txtbodylineHeight tracking-txtbodyLetterspacing ">all</span></option>
             <option value="1"   class="text-black   rounded-lg  px-5  text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"><span  className=" font-txtFontFamily text-txtbodyFontsize font-txtbodyFontWeight leading-txtbodylineHeight tracking-txtbodyLetterspacing ">1</span></option>
             <option value="2"   class="text-black   rounded-lg  px-5  text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button"><span  className=" font-txtFontFamily text-txtbodyFontsize font-txtbodyFontWeight leading-txtbodylineHeight tracking-txtbodyLetterspacing ">2</span></option>
@@ -452,7 +475,7 @@ const handleMouseLeav=()=>{
         handleFiltering().map((item, index) => (
           <div
             key={index}
-            className="bg-white anime rounded-lg shadow-md overflow-hidden border border-gray-200"
+            className="bg-white anime rounded-lg shadow-md overflow-hidden border border-gray-200" onClick={()=>{  navigate(`/housedescription/${item.id}`);}}
           >
             <img
               src={item.imageUrls[0]}
@@ -481,7 +504,7 @@ const handleMouseLeav=()=>{
                    <MdBedroomParent color="blue" size={25} />
                 </div>
                 <div>
-                {item.number_rooms}
+                {item.number_rooms}rooms
                 </div>
              </div>
              <div className=" flex space-x-3">
@@ -489,22 +512,14 @@ const handleMouseLeav=()=>{
                    <MdBathroom color="blue" size={25} />
                 </div>
                 <div>
-                 {item.number_of_bathrooms}
+                 {item.number_of_bathrooms}bathrooms
                 </div>
               </div>
               <div className="flex justify-between items-center">
                 <div className="text-purple-700 font-semibold text-xl">
                   {item.price} Rwf
                 </div>
-                <button
-                  onClick={() => {
-                    navigate(`/housedescription/${item.id}`);
-                  }}
-                  type="button"
-                  className="focus:outline-none  bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 text-white font-medium rounded-lg px-4 py-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
-                >
-                  View House
-                </button>
+               
               </div>
             </div>
           </div>
@@ -512,7 +527,7 @@ const handleMouseLeav=()=>{
       ):( allHouse.map((item, index) => (
         <div
           key={index}
-          className="bg-white anime rounded-lg shadow-md overflow-hidden border border-gray-200"
+          className="bg-white anime rounded-lg shadow-md overflow-hidden border border-gray-200" onClick={()=>{  navigate(`/housedescription/${item.id}`);}}
         >
           <img
             src={item.imageUrls[0]}
@@ -536,37 +551,29 @@ const handleMouseLeav=()=>{
            </div>
            </div>
            <div className=" flex space-x-8 max-md:space-x-1 sm:space-x-1 max-lg:space-x-2 font-headerFontFamily font-txtbodyFontWeight leading-anotherLineHeight tracking-txtbodyLetterspacing text-txthecolor">
-                   <div className=" flex  space-x-28">       
+                        
            <div className=" flex pl-3 ">
               <div>
                  <MdBedroomParent color="blue" size={25} />
               </div>
               <div>
-              {item.number_rooms}
+              {item.number_rooms}rooms
               </div>
            </div>
-           <div className=" flex   ">
+           <div className=" flex ">
               <div>
                  <MdBathroom color="blue" size={25} />
               </div>
               <div>
-               {item.number_of_bathrooms}
+               {item.number_of_bathrooms}bathrooms
               </div>
             </div>
-            </div> 
+          
             <div className="flex justify-between items-center">
               <div className="text-purple-700 font-semibold text-xl">
                 {item.price} Rwf
               </div>
-              <button
-                onClick={() => {
-                  navigate(`/housedescription/${item.id}`);
-                }}
-                type="button"
-                className="focus:outline-none  bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 text-white font-medium rounded-lg px-4 py-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900"
-              >
-                View House
-              </button>
+             
             </div>
           </div>
         </div>
