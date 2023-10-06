@@ -424,7 +424,7 @@ const LandLoadDashboard=()=>{
          <div>
             <img style={{width:'70%'}} src={item.imageUrls[0]} alt="" />
          </div>
-         <div className=" mt-4 ml-7 font-txtFontFamily text-txtbodyFontsize font-headerFontWeight leading-txtbodylineHeight tracking-txtbodyLetterspacing text-txthecolor">{item.location}, {item.property_type}</div>
+         <div className=" mt-4 ml-7 font-txtFontFamily text-txtbodyFontsize font-headerFontWeight leading-txtbodylineHeight tracking-txtbodyLetterspacing text-txthecolor">{item.description} </div>
          <div className=" space-y-5 ml-1 mt-3">
          <div className=" flex  space-x-16 font-headerFontFamily font-txtbodyFontWeight leading-anotherLineHeight tracking-txtbodyLetterspacing text-txthecolor">
          <div className=" flex space-x-3">
@@ -432,7 +432,7 @@ const LandLoadDashboard=()=>{
             <CiLocationOn size={25} color="blue"  />
             </div>
             <div>
-            {item.location}
+            {item.city}
             </div>
          </div>
          <div className=" flex   space-x-3">
@@ -450,7 +450,7 @@ const LandLoadDashboard=()=>{
                <MdBedroomParent color="blue" size={25} />
             </div>
             <div>
-               {item.number_rooms}Bedrooms
+               {item.number_rooms} Bedrooms
             </div>
          </div>
          <div className=" flex space-x-3">
@@ -458,7 +458,7 @@ const LandLoadDashboard=()=>{
                <MdBathroom color="blue" size={25} />
             </div>
             <div>
-            2 Bathrooms
+            {item.number_of_bathrooms} Bathrooms
             </div>
          </div>
          </div>

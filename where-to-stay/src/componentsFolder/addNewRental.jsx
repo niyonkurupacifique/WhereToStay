@@ -1,5 +1,8 @@
 import React, { useEffect } from "react";
 import Header from "./header";
+import makeAnimated from 'react-select/animated';
+import Select from "react-select";
+
 import logo from "./Images/logo.png";
 import homelogo from "./Images/homelogo.png";
 import dashboardlogo from "./Images/dashlogo.png";
@@ -15,7 +18,6 @@ import houseImage from "./Images/house0.png";
 import { useState } from "react";
 import { HideOn } from "react-hide-on-scroll";
 import { AiOutlineHome } from "react-icons/ai";
-import { CiLocationOn } from "react-icons/ci";
 import { MdBedroomParent, MdBathroom } from "react-icons/md";
 import imglogo from "./Images/imglogo.png";
 import { useContext } from "react";
@@ -30,8 +32,10 @@ import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import { BsFillImageFill } from "react-icons/bs";
+import { FaLocationArrow } from "react-icons/fa";
 import { color } from "@cloudinary/url-gen/qualifiers/background";
 import "../App.css";
+
 
 const AddnewRental = () => {
   const navigate = useNavigate(Navigate);
@@ -47,16 +51,18 @@ const AddnewRental = () => {
   const [imageURL5, setImageURL5] = useState("");
   const [streetAddress, setStreetAddress] = useState("");
   const [Status, setStatus] = useState("");
-  const [district, setDistrict] = useState("");
+  const [city, setCity] = useState("");
   const [sector, setSector] = useState("");
-  const [rentPeriod, setRentalPeriod] = useState("");
   const [propertyType, setPropertyType] = useState("");
   const [numberOfBedroom, setNumberOfBedroom] = useState(0);
   const [numberofBoothroom, setNumberOfBoothRoom] = useState(0);
   const [rentalPrice, setRentalPrice] = useState(0);
   const [DescriptionOfProperty, setDescriptionOfProperty] = useState("");
+  const [wordCount, setWordCount] = useState(0);
   const { setmessageStatus } = useContext(OpenModalContext);
   const { messageStatus } = useContext(OpenModalContext);
+  const [selectedAmenities, setSelectedAmenities] = useState([]);
+
   const { setMessage } = useContext(OpenModalContext);
   const { setMessageType } = useContext(OpenModalContext);
   const [loading, setLoading] = useState(false);
@@ -65,6 +71,52 @@ const AddnewRental = () => {
   const [IsImageUploaded3, setIsImageUploaded3] = useState(false);
   const [IsImageUploaded4, setIsImageUploaded4] = useState(false);
   const [IsImageUploaded5, setIsImageUploaded5] = useState(false);
+  const [location, setLocation] = useState([0, 0]);
+
+  const maxWords = 8;
+  const handleDescriptionChange = (e) => {
+    const inputText = e.target.value;
+    const words = inputText.trim().split(/\s+/);
+    const currentWordCount = words.length;
+
+    if (currentWordCount <= maxWords) {
+      setDescriptionOfProperty(inputText);
+      setWordCount(currentWordCount);
+    }
+  };
+  const amenitiesOptions = [
+    { value: "pool", label: "Pool" },
+    { value: "gym", label: "Gym" },
+    { value: "parking", label: "Parking" },
+    { value: "security", label: "Security" },
+    {value: "wifi", label: "Wifi"},
+    {value: "water", label: "Water"},
+    {value: "electricity", label: "Electricity"},
+    {value: "furnished rooms", label: "Furnished Rooms"},
+    {value: "kitchen", label: "Kitchen"},
+    {value: "laundry", label: "Laundry"},
+    {value: "air conditioning", label: "Air Conditioning"},
+    {value: "cctv", label: "CCTV"}
+  ];
+  const customStyles = {
+    control: (provided) => ({
+      ...provided,
+      width: "100%", 
+      border: "none", 
+      borderBottom: "1px solid #d1d5db", 
+      borderRadius: 0, 
+    }),
+    option: (provided, state) => ({
+      ...provided,
+      backgroundColor: state.isSelected ? "dodgerblue" : "white",
+      color: state.isSelected ? "white" : "black",
+    }),
+  }
+
+  const handleAmenitiesChange = (selectedOptions) => {
+    const selectedValues = selectedOptions.map((option) => option.value);
+    setSelectedAmenities(selectedValues);
+  };
 
   const handleImageUpload = async (e) => {
     if (e.target.files && e.target.files.length > 0) {
@@ -242,6 +294,19 @@ const AddnewRental = () => {
       setIsImageUploaded5(false);
     }
   };
+
+  const handleGetLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        const { latitude, longitude } = position.coords
+        setLocation([latitude, longitude]);
+      });
+      console.log(location);
+    } else {
+      alert("Geolocation is not supported by your browser.");
+    }
+
+  };
   const handleSubmitHouse = async (e) => {
     e.preventDefault();
     if (
@@ -258,12 +323,14 @@ const AddnewRental = () => {
     } else {
       console.log([
         DescriptionOfProperty,
+        city,
         rentalPrice,
+        location,
         streetAddress,
         propertyType,
         imageURL,
-        Status,
         numberOfBedroom,
+        selectedAmenities,
         numberofBoothroom,
       ]);
       try {
@@ -274,13 +341,15 @@ const AddnewRental = () => {
             method: "POST",
             body: JSON.stringify({
               description: DescriptionOfProperty,
+              street_address: streetAddress,
               price: rentalPrice,
-              location: streetAddress,
+              location: { latitude: location[0], longitude: location[1] },
               property_type: propertyType,
               imageUrls: [imageURL, imageURL2, imageURL3, imageURL4, imageURL5],
-              isAvailable: Status,
               number_rooms: numberOfBedroom,
               number_of_bathrooms: numberofBoothroom,
+              city: city,
+              amenities: selectedAmenities,
             }),
             headers: {
               "Content-Type": "application/json; charset=utf-8",
@@ -393,9 +462,202 @@ const AddnewRental = () => {
         </aside>
 
         <div style={{ marginLeft: "38%" }} className="  mt-28 space-y-4">
+ 
+        <div class="mb-3 flex space-x-4">
+            <label
+              for="large-input"
+              class="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              City
+            </label>
+            <input
+              onChange={(e) => {
+                setCity(e.target.value);
+              }}
+              style={{ width: "55%", marginLeft: "22%", padding: "8px", fontSize: "14px" }}
+              type="text"
+              id="large-input"
+              class="block  p-4 text-gray-900 border  border-b-mycolor rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            />
+          </div>
+          <div class="mb-6 flex space-x-16">
+            <label
+              for="large-input"
+              class="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Street Address
+            </label>
+            <input
+              onChange={(e) => {
+                setStreetAddress(e.target.value);
+              }}
+              style={{ width: "55%", marginLeft: "14%", padding: "8px", fontSize: "14px" }}
+              type="text"
+              id="large-input"
+              class="block  p-4 text-gray-900 border  border-b-mycolor rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            />
+          </div>
+          <div className="mb-3 flex space-x-4">
+  <label
+    htmlFor="large-input"
+    className="block mb-1 mt-2 text-sm font-medium text-gray-900 dark:text-white"
+  >
+    Location
+  </label>
+  <input
+    style={{ width: "50%", marginLeft: "18.5%", padding: "8px", fontSize: "14px" }}
+    type="text"
+    placeholder="click the button to get your location"
+    id="large-input"
+    className="block p-2 text-gray-900 border border-b-mycolor rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+    value={location.join(", ")}
+    readOnly
+  />
+  <button
+    onClick={handleGetLocation}
+    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-1 rounded text-sm"
+  >
+    <FaLocationArrow />
+  </button>
+</div>
+
+
+
+          <div class="mb-6 flex space-x-16">
+            <label
+              for="large-input"
+              class="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Property Type
+            </label>
+            <select
+              onChange={(e) => {
+                setPropertyType(e.target.value);
+              }}
+              style={{ width: "55%", marginLeft: "14.5%", padding: "8px", fontSize: "14px" }}
+              type="text"
+              id="large-input"
+              class="block  p-4 text-gray-900 border  border-b-mycolor rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              name=""
+            >
+              <option value="ghetto">Ghetto</option>
+              <option value="apartment">Apartment</option>
+              <option value="home">Home</option>
+            </select>
+          </div>
+          <div class="mb-6 flex space-x-16">
+  <label
+    for="bedroom-select"
+    class="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white"
+  >
+    Number of Bedrooms
+  </label>
+  <select
+    onChange={(e) => {
+      setNumberOfBedroom(e.target.value);
+    }}
+    style={{ width: "55%", marginLeft: "9%", padding: "8px", fontSize: "14px" }}
+    id="bedroom-select"
+    className="block p-4 text-gray-900 border border-b-mycolor rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+  >
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option> 
+    <option value="7">7</option>
+    <option value="8">8</option>
+  </select>
+</div>
+
+
+          <div class="mb-6 flex space-x-16">
+  <label
+    for="bathroom-select"
+    class="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white"
+  >
+    Number of bathrooms
+  </label>
+  <select
+    onChange={(e) => {
+      setNumberOfBoothRoom(e.target.value);
+    }}
+    style={{ width: "55%", marginLeft: "9%", padding: "8px", fontSize: "14px" }}
+    id="bathroom-select"
+    class="block p-4 text-gray-900 border border-b-mycolor rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+  >
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+  </select>
+</div>
+
+<div className="mb-6 flex space-x-20 w-4/5" style={{ maxHeight: "300px" }}>
+  <label
+    htmlFor="large-input"
+    className="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white"
+    style={{ marginRight: "12%" }}
+  >
+    Amenities
+  </label>
+  <Select
+    isMulti
+    options={amenitiesOptions}
+    value={selectedAmenities.map(value => ({ value, label: value }))}
+    onChange={handleAmenitiesChange}
+    styles={{
+      marginLeft: "10%",
+      padding: "8px",
+      fontSize: "14px",
+      maxHeight: "80%",
+    }}
+    className="w-3/4"
+  />
+</div>
+
+
+          <div class="mb-6 flex space-x-16">
+            <label
+              for="large-input"
+              class="block mb-2 mt-4 mr-8 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Rental Price
+            </label>
+            <input
+              onChange={(e) => setRentalPrice(e.target.value)}
+              style={{ width: "55%", marginLeft: "13%", padding: "8px", fontSize: "14px" }}
+              type="number"
+              id="large-input"
+              class="block  p-4 text-gray-900 border  border-b-mycolor rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            />
+          </div>
+          
+          <div class="mb-6 flex space-x-16">
+            <label
+              for="large-input"
+              class="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Description Of Property
+            </label>
+            <textarea
+              onChange={handleDescriptionChange}
+              style={{ width: "55%", marginLeft: "8%", padding: "8px", fontSize: "14px" }}
+              type="text"
+              id="large-input"
+              value={DescriptionOfProperty}
+              class="block  p-4 text-gray-900 border  border-b-mycolor rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+            ></textarea>
+            <p className="text-gray-500">{wordCount} word{wordCount !== 1 ? 's' : ''}</p>
+          </div>
           <div className=" flex  space-x-10">
             <div className=" mt-4">Upload Photo</div>
-            <div className="flex space-x-7" style={{ marginLeft: '21%' }}>
+            <div className="flex space-x-7" style={{ marginLeft: '19%' }}>
               <div
                 style={{ marginLeft: "1%", maxWidth: "6%", maxHeight: "80%" }}
                 class="relative   text-white p-2 rounded border border-black   cursor-pointer"
@@ -548,158 +810,6 @@ const AddnewRental = () => {
               </div>
             </div>
           </div>
-
-          <div class="mb-6 flex  space-x-20">
-            <label
-              for="large-input"
-              class="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Street Address
-            </label>
-            <input
-              onChange={(e) => {
-                setStreetAddress(e.target.value);
-              }}
-              style={{ width: "55%", marginLeft: "17%" }}
-              type="text"
-              id="large-input"
-              class="block    p-4 text-gray-900 border  border-b-mycolor rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            />
-          </div>
-
-          <div class="mb-6 flex space-x-16">
-            <label
-              for="large-input"
-              class="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              District
-            </label>
-            <input
-              style={{ width: "55%", marginLeft: "22%" }}
-              type="text"
-              id="large-input"
-              class="block  p-4 text-gray-900 border  border-b-mycolor rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            />
-          </div>
-          <div class="mb-6 flex space-x-16">
-            <label
-              for="large-input"
-              class="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Is available
-            </label>
-            <input
-              onChange={(e) => {
-                setStatus(e.target.value);
-              }}
-              style={{ width: "55%", marginLeft: "19%" }}
-              type="text"
-              id="large-input"
-              class="block  p-4 text-gray-900 border  border-b-mycolor rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            />
-          </div>
-          <div class="mb-6 flex space-x-16">
-            <label
-              for="large-input"
-              class="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Sector
-            </label>
-            <input
-              style={{ width: "55%", marginLeft: "23%" }}
-              type="text"
-              id="large-input"
-              class="block  p-4 text-gray-900 border  border-b-mycolor rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            />
-          </div>
-
-          <div class="mb-6 flex space-x-16">
-            <label
-              for="large-input"
-              class="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Property Type
-            </label>
-            <select
-              onChange={(e) => {
-                setPropertyType(e.target.value);
-              }}
-              style={{ width: "55%", marginLeft: "17%" }}
-              type="text"
-              id="large-input"
-              class="block  p-4 text-gray-900 border  border-b-mycolor rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              name=""
-            >
-              <option value="ghetto">Ghetto</option>
-              <option value="apartment">Apartment</option>
-              <option value="home">Home</option>
-            </select>
-          </div>
-          <div class="mb-6 flex space-x-16">
-            <label
-              for="large-input"
-              class="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Number of Bedroom
-            </label>
-            <input
-              onChange={(e) => {
-                setNumberOfBedroom(e.target.value);
-              }}
-              style={{ width: "55%", marginLeft: "12%" }}
-              type="text"
-              id="large-input"
-              class="block  p-4 text-gray-900 border  border-b-mycolor rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            />
-          </div>
-
-          <div class="mb-6 flex space-x-16">
-            <label
-              for="large-input"
-              class="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Number of bathroom
-            </label>
-            <input
-              onChange={(e) => {
-                setNumberOfBoothRoom(e.target.value);
-              }}
-              style={{ width: "55%", marginLeft: "11.5%" }}
-              type="text"
-              id="large-input"
-              class="block  p-4 text-gray-900 border  border-b-mycolor rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            />
-          </div>
-          <div class="mb-6 flex space-x-16">
-            <label
-              for="large-input"
-              class="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Rental Price
-            </label>
-            <input
-              onChange={(e) => setRentalPrice(e.target.value)}
-              style={{ width: "55%", marginLeft: "19%" }}
-              type="text"
-              id="large-input"
-              class="block  p-4 text-gray-900 border  border-b-mycolor rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            />
-          </div>
-          <div class="mb-6 flex space-x-16">
-            <label
-              for="large-input"
-              class="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white"
-            >
-              Description Of Property
-            </label>
-            <textarea
-              onChange={(e) => setDescriptionOfProperty(e.target.value)}
-              style={{ width: "55%", marginLeft: "10%" }}
-              type="text"
-              id="large-input"
-              class="block  p-4 text-gray-900 border  border-b-mycolor rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            />
-          </div>
           <div style={{ marginLeft: "45%" }}>
             <button
               onClick={handleSubmitHouse}
@@ -709,6 +819,7 @@ const AddnewRental = () => {
               Submit
             </button>
           </div>
+          
         </div>
       </div>
     </div>
