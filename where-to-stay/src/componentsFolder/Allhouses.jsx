@@ -508,7 +508,7 @@ const handleMouseLeav=()=>{
                    <MdBedroomParent color="blue" size={25} />
                 </div>
                 <div>
-                {item.number_rooms}rooms
+                {item.number_rooms}Rooms
                 </div>
              </div>
              <div className=" flex space-x-3">
@@ -516,7 +516,7 @@ const handleMouseLeav=()=>{
                    <MdBathroom color="blue" size={25} />
                 </div>
                 <div>
-                 {item.number_of_bathrooms} bathrooms
+                 {item.number_of_bathrooms} Bathrooms
                 </div>
               </div>
               <div className="flex justify-between items-center">
@@ -563,7 +563,7 @@ const handleMouseLeav=()=>{
                  <MdBedroomParent color="blue" size={25} />
               </div>
               <div>
-              {item.number_rooms}rooms
+              {item.number_rooms}Rooms
               </div>
            </div>
            <div className=" flex   ">
@@ -571,7 +571,7 @@ const handleMouseLeav=()=>{
                  <MdBathroom color="blue" size={25} />
               </div>
               <div>
-               {item.number_of_bathrooms}bathrooms
+               {item.number_of_bathrooms}Bathrooms
               </div>
             </div>
            
