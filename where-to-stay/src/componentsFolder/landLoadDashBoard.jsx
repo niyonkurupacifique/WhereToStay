@@ -35,6 +35,7 @@ const LandLoadDashboard=()=>{
     const{newToken}=useParams()
    const splitToken=newToken.split(' ')
   const newToken2=splitToken[1]
+  const{tokenToUseInPayment}=useParams()
    const[myProperty,setMyProperty]=useState([])
    const [homeCount, setHomeCount] = useState(0);
   const [apartmentCount, setApartmentCount] = useState(0);
@@ -426,7 +427,7 @@ const LandLoadDashboard=()=>{
          </div>
          <div className=" mt-4 ml-7 font-txtFontFamily text-txtbodyFontsize font-headerFontWeight leading-txtbodylineHeight tracking-txtbodyLetterspacing text-txthecolor">{item.description} </div>
          <div className=" space-y-5 ml-1 mt-3">
-         <div className=" flex  space-x-16 font-headerFontFamily font-txtbodyFontWeight leading-anotherLineHeight tracking-txtbodyLetterspacing text-txthecolor">
+         <div className=" flex space-x-8 font-headerFontFamily font-txtbodyFontWeight leading-anotherLineHeight tracking-txtbodyLetterspacing text-txthecolor">
          <div className=" flex space-x-3">
             <div>
             <CiLocationOn size={25} color="blue"  />

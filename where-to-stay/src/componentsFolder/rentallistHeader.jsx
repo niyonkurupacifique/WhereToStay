@@ -17,6 +17,7 @@ const RentallistHeader = () => {
   const navigate=useNavigate(Navigate)
   const [userName, setUserName] = useState(""); 
   const{newToken}=useParams()
+  const{tokenToUseInPayment}=useParams()
   const newToken2=newToken.split(" ")
   const newToken3=newToken2[1]
   console.log("token in header is",newToken)

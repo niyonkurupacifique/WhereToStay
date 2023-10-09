@@ -12,14 +12,14 @@ import{MdBedroomParent,MdBathroom} from 'react-icons/md'
 import { useContext } from "react";
 import { OpenModalContext } from "./context";
 import {HideOn} from 'react-hide-on-scroll'
-import { useParams } from "react-router-dom";
  import { ThreeDots } from "react-loader-spinner"; 
  import {FaExclamationCircle} from 'react-icons/fa'
+ import { useParams } from "react-router-dom";
 
  import Footer from "./footer";
 import { useState } from "react";
 
-const ALLhouses=()=>{
+const Home=()=>{
  
 const [allHouse,setAllHouse]=useState([])
 const[LocationaccountClicked,setLocationAccountClicked]=useState(false)
@@ -476,113 +476,133 @@ const handleMouseLeav=()=>{
       </div>):
         handleFiltering().map((item, index) => (
           <div
-            key={index}
-            className="bg-white anime rounded-lg shadow-md overflow-hidden border border-gray-200"  onClick={() => {
-              navigate(`/logedinhousedescription/${item.id}/${Newtoken}`);
-            }}
-          >
-            <img
-              src={item.imageUrls[0]}
-              alt={item.city}
-              className="w-full h-48 bject-cover object-center"
-            />
-            <div className="p-4">
-              <h2 className="text-xl font-semibold mb-2">{item.city}</h2>
-              <div className="text-gray-600 mb-4">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center">
-                    <CiLocationOn size={25} color="blue" />
-                    <span className="ml-2">{item.city}</span>
-                  </div>
-                  <div className="flex items-center">
-                    <AiOutlineHome size={25} color="blue" />
-                    <span className="ml-2">{item.property_type}</span>
-                  </div>
-                </div>
-               
-             </div>
-             </div>
-             <div className=" flex space-x-8 max-md:space-x-1 sm:space-x-1 max-lg:space-x-2 font-headerFontFamily font-txtbodyFontWeight leading-anotherLineHeight tracking-txtbodyLetterspacing text-txthecolor">
-             <div className=" flex space-x-1">
-                <div>
-                   <MdBedroomParent color="blue" size={25} />
-                </div>
-                <div>
-                {item.number_rooms}Rooms
-                </div>
-             </div>
-             <div className=" flex space-x-3">
-                <div>
-                   <MdBathroom color="blue" size={25} />
-                </div>
-                <div>
-                 {item.number_of_bathrooms} Bathrooms
-                </div>
-              </div>
-              <div className="flex justify-between items-center">
-                <div className="text-purple-700 font-semibold text-xl">
-                  {item.price} Rwf
-                </div>
-               
-              </div>
-            </div>
-          </div>
-        ))
-      ):( allHouse.map((item, index) => (
-        <div
           key={index}
           className="bg-white anime rounded-lg shadow-md overflow-hidden border border-gray-200"  onClick={() => {
             navigate(`/logedinhousedescription/${item.id}/${Newtoken}`);
           }}
         >
-          <img
-            src={item.imageUrls[0]}
-            alt={item.city}
-            className="w-full h-48 bject-cover object-center"
-          />
-          <div className="p-4">
-            <h2 className="text-xl font-semibold mb-2">{item.description}</h2>
-            <div className="text-gray-600 mb-4">
-              <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center">
-                  <CiLocationOn size={25} color="blue" />
-                  <span className="ml-2">{item.city}</span>
-                </div>
-                <div className="flex items-center">
-                  <AiOutlineHome size={25} color="blue" />
-                  <span className="">{item.property_type}</span>
-                </div>
-              </div>
-             
-           </div>
-           </div>
-           <div className=" flex space-x-8 max-md:space-x-1 sm:space-x-1 max-lg:space-x-2 font-headerFontFamily font-txtbodyFontWeight leading-anotherLineHeight tracking-txtbodyLetterspacing text-txthecolor">
-                      
-           <div className=" flex pl-3 ">
-              <div>
-                 <MdBedroomParent color="blue" size={25} />
-              </div>
-              <div>
-              {item.number_rooms}Rooms
-              </div>
-           </div>
-           <div className=" flex   ">
-              <div>
-                 <MdBathroom color="blue" size={25} />
-              </div>
-              <div>
-               {item.number_of_bathrooms}Bathrooms
-              </div>
-            </div>
-           
-            <div className="flex justify-between items-center">
-              <div className="text-purple-700 font-semibold text-xl">
-                {item.price} Rwf
-              </div>
-              
-            </div>
-          </div>
+ <div className="relative">
+    <img
+      src={item.imageUrls[0]}
+      alt={item.city}
+      className="w-full h-48 object-cover object-center"
+    />
+    {/* Price with Blurred Background */}
+    <div className="absolute bottom-1 left-2">
+      <div className="bg-black bg-opacity-5 backdrop-blur-lg p-1 rounded-lg">
+        <div className="text-white font-semibold text-xl">
+          {item.price} Rwf
         </div>
+      </div>
+    </div>
+  </div>
+
+  {/* Amenities */}
+  <div className="absolute top-4 left-4 flex space-x-2">
+    {item.amenities.map((amenity, idx) => (
+      <span
+        key={idx}
+        className="text-sm text-white bg-gray-800 px-2 py-1 rounded-lg"
+      >
+        {amenity}
+      </span>
+    ))}
+  </div>
+  {/* House Details */}
+  <div className="p-4">
+    <h2 className="text-xl font-semibold mb-2">{item.description}</h2>
+    <div className="text-gray-600 mb-4">
+      <div className="flex items-center justify-between mb-2">
+        <div className="flex items-center">
+          <CiLocationOn size={25} color="blue" />
+          {item.city.charAt(0).toUpperCase() + item.city.slice(1).toLowerCase()}
+        </div>
+        <div className="flex items-center">
+          <AiOutlineHome size={25} color="blue" />
+          <span className="ml-2">{item.property_type.charAt(0).toUpperCase() + item.property_type.slice(1).toLowerCase() }</span>
+        </div>
+      </div>
+    </div>
+
+    {/* Room and Bathroom Details */}
+    <div className="flex space-x-8 max-md:space-x-1 sm:space-x-1 max-lg:space-x-2 font-headerFontFamily font-txtbodyFontWeight leading-anotherLineHeight tracking-txtbodyLetterspacing text-txthecolor justify-between">
+      <div className="flex">
+        <MdBedroomParent color="blue" size={25} />
+        <span className="ml-2">{item.number_rooms} Rooms</span>
+      </div>
+      <div className="flex ">
+        <MdBathroom color="blue" size={25} />
+        <span className="ml-2">{item.number_of_bathrooms} Bathrooms</span>
+      </div>
+    </div>
+  </div>
+</div>
+        ))
+      ):( allHouse.map((item, index) => (
+  <div
+  key={index}
+  className="bg-white anime rounded-lg shadow-md overflow-hidden border border-gray-200 relative"
+  onClick={() => {
+    navigate(`/logedinhousedescription/${item.id}/${Newtoken}`);
+  }}
+>
+<div className="relative">
+    <img
+      src={item.imageUrls[0]}
+      alt={item.city}
+      className="w-full h-48 object-cover object-center"
+    />
+    {/* Price with Blurred Background */}
+    <div className="absolute bottom-1 left-2">
+      <div className="bg-black bg-opacity-5 backdrop-blur-lg p-1 rounded-lg">
+        <div className="text-white font-semibold text-xl">
+          {item.price} Rwf
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {/* Amenities */}
+  <div className="absolute top-4 left-4 flex space-x-2">
+    {item.amenities.map((amenity, idx) => (
+      <span
+        key={idx}
+        className="text-sm text-white bg-gray-800 px-2 py-1 rounded-lg"
+      >
+        {amenity}
+      </span>
+    ))}
+  </div>
+  {/* House Details */}
+  <div className="p-4">
+    <h2 className="text-xl font-semibold mb-2">{item.description}</h2>
+    <div className="text-gray-600 mb-4">
+      <div className="flex items-center justify-between mb-2">
+        <div className="flex items-center">
+          <CiLocationOn size={25} color="blue" />
+          {item.city.charAt(0).toUpperCase() + item.city.slice(1).toLowerCase()}
+        </div>
+        <div className="flex items-center">
+          <AiOutlineHome size={25} color="blue" />
+          <span className="ml-2">{item.property_type.charAt(0).toUpperCase() + item.property_type.slice(1).toLowerCase() }</span>
+        </div>
+      </div>
+    </div>
+
+    {/* Room and Bathroom Details */}
+    <div className="flex space-x-8 max-md:space-x-1 sm:space-x-1 max-lg:space-x-2 font-headerFontFamily font-txtbodyFontWeight leading-anotherLineHeight tracking-txtbodyLetterspacing text-txthecolor justify-between">
+      <div className="flex">
+        <MdBedroomParent color="blue" size={25} />
+        <span className="ml-2">{item.number_rooms} Rooms</span>
+      </div>
+      <div className="flex ">
+        <MdBathroom color="blue" size={25} />
+        <span className="ml-2">{item.number_of_bathrooms} Bathrooms</span>
+      </div>
+    </div>
+  </div>
+</div>
+
       )))
     }
   </div>
@@ -631,4 +651,4 @@ const handleMouseLeav=()=>{
       </>
     )
 }
-export default ALLhouses
+export default Home

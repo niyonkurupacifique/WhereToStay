@@ -20,6 +20,8 @@ import LoginFromAccount from './componentsFolder/loginFromAccount';
  import HouseDescriptionWhenLogedIn from './componentsFolder/HouseDescriptionWhenLogin';
  import BookingStatusPage from './componentsFolder/bookingStatusPage';
  import RentalList from './componentsFolder/rentalList';
+  import UpdateRental from './componentsFolder/updatePage';
+  import PaymentPage from './componentsFolder/paymentPage';
 
 function App() {
   const[open,setOpen]=useState(false)
@@ -33,10 +35,11 @@ function App() {
   const[BookingStatus,setBookingStatus]=useState(false)
   const[landloardClicked,setLandLoadClicked]=useState(false)
   const[studentsClicked,setStudentsClicked]=useState(false)
+  const[NewtokenToUse,setNewTokenToUse]=useState("")
   const[role,setRole]=useState("")
   return (
     <div>
-      <OpenModalContext.Provider value={{role,setRole,studentsClicked,setStudentsClicked,landloardClicked,setLandLoadClicked,openLogin,setOpenLogin,open,setOpen,openSignup,setOpenSignup,openChat,setOpenChat,Message,setMessage,messageStatus,setmessageStatus,messageType,setMessageType,houseId,setHouseId,BookingStatus,setBookingStatus}}>
+      <OpenModalContext.Provider value={{NewtokenToUse,setNewTokenToUse,role,setRole,studentsClicked,setStudentsClicked,landloardClicked,setLandLoadClicked,openLogin,setOpenLogin,open,setOpen,openSignup,setOpenSignup,openChat,setOpenChat,Message,setMessage,messageStatus,setmessageStatus,messageType,setMessageType,houseId,setHouseId,BookingStatus,setBookingStatus}}>
      <ChatWithUs></ChatWithUs>
      <Login></Login>
      <Signup></Signup>
@@ -44,6 +47,8 @@ function App() {
      <Routes>
                 <Route path="/" element={<Home></Home>} exact />
                 <Route path="/home" element={<Home></Home>} exact />
+                <Route path="/paymentpage/:Newtoken/:id" element={<PaymentPage></PaymentPage>} exact />
+                <Route path="/updaterental" element={<UpdateRental></UpdateRental>} exact />
                 <Route path="/logedinhousedescription/:houseId/:Newtoken" element={<HouseDescriptionWhenLogedIn></HouseDescriptionWhenLogedIn>} exact />
                 <Route path="/allhouses/:Newtoken" element={<ALLhouses></ALLhouses>} exact />
                 <Route path="/dashboard/:newToken" element={<LandLoadDashboard></LandLoadDashboard>} />

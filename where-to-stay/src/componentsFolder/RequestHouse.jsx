@@ -76,7 +76,7 @@ export default function Orders() {
       }
       else {
         const result2 = await result.json();
-        console.log(result2)
+        console.log("booking requested is:",result2)
         setmessageStatus(true);
         setMessage("house Booking successfully send ")
         setMessageType("success")

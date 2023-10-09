@@ -60,14 +60,78 @@ export default function Signup() {
   const{setOpenLogin}=useContext(OpenModalContext)
   
 
+
+
+
+
+  const HandleRequestPayment= async () => {
+   
+    
+    
+      try {
+        setLoading(true);
+        const result = await fetch("https://opay-api.oltranz.com/opay/register", {
+          method: "POST",
+          body: JSON.stringify(
+            {
+              "businessName" : "WhereToStay",
+              "firstName" :firstname,
+              "lastName" :secondname,
+              "telephoneNumber" :phoneNumber,
+              "email" :email,
+              "address" : "kigali",
+          
+            }
+          ),
+          headers: {
+            "Content-Type":"application/json",
+          
+          },
+        });
+    
+        if (!result.ok) {
+          // Handle non-successful status codes here
+          console.error(result.status);
+          setmessageStatus(true)
+          setMessage(result.description)
+          setMessageType("error")
+          console.log(result.description)
+          
+        } else {
+          const result2 = await result.json();
+          console.log(result2)
+         
+            setmessageStatus(true);
+            setMessage(result2.description)
+            setMessageType("success")
+         console.log(result2.description)
+          
+        }
+    
+        
+      } catch (error) {
+        console.error("An error occurred:", error);
+        setMessageType("error")
+        setMessage(" failed")
+      }finally {
+        setLoading(false); // Step 2: Set loading to false when the request is completed
+      }
+    };
+  
+
+
+
+
+
+
  const handlecloseSignup=()=>{
     setOpenSignup(false)
  }
  
   
  const handleFormSubmit = async (e) => {
-  e.preventDefault();
-
+   
+     e.preventDefault();
   if(/^[A-Za-z\s]+$/.test(firstname)===false)
   {
     e.preventDefault();
@@ -86,7 +150,7 @@ export default function Signup() {
      return;
      
   }
-  else if(/^(\+\d{10}|\d{10})$/.test(phoneNumber)===false)
+  else if(/^(\+\d{12}|\d{12})$/.test(phoneNumber)===false)
   {
     e.preventDefault();
     setmessageStatus(true)
@@ -145,6 +209,7 @@ export default function Signup() {
       {
         setmessageStatus(true);
         setMessage(result2.message)
+        // HandleRequestPayment()
         setMessageType("success")
         setOpenSignup(false)
         
@@ -159,6 +224,7 @@ export default function Signup() {
     setLoading(false); 
   }
 }
+
 };
 
 

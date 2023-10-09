@@ -197,24 +197,24 @@ const propertyLongitude =  houseDescriptionById?.location[1];
                   </div>
                   <div className=" font-txtFontFamily text-txtbodyFontsize font-txtbodyFontWeight leading-txtbodylineHeight tracking-txttttttttttttttttttbodyLetterspacing">
                     <div>
-                      <span>
-                        Property Type:{houseDescriptionById.property_type}
+                      <span className="">
+                       <span className="font-txtFontFamily text-headerFontSize font-headerFontWeight leading-txttttLineHeight tracking-txttttttttttttttttttbodyLetterspacing"> Property Type</span>:{houseDescriptionById.property_type}
                       </span>
                     </div>
                     <div>
                       <span>
-                        Number of Bedrooms:{houseDescriptionById.number_rooms}
+                       <span className="font-txtFontFamily text-headerFontSize font-headerFontWeight leading-txttttLineHeight tracking-txttttttttttttttttttbodyLetterspacing"> Number of Bedrooms</span>:{houseDescriptionById.number_rooms}
                       </span>
                     </div>
                     <div>
                       <span>
-                        Number of bathrooms:
+                      <span className="font-txtFontFamily text-headerFontSize font-headerFontWeight leading-txttttLineHeight tracking-txttttttttttttttttttbodyLetterspacing">  Number of bathrooms:</span>
                         {houseDescriptionById.number_of_bathrooms}
                       </span>
                     </div>
                     <div>
                       <span>
-                        Price:{houseDescriptionById.price} Rwf per month
+                       <span> Price:</span> {houseDescriptionById.price} Rwf per month
                       </span>
                     </div>
                   </div>

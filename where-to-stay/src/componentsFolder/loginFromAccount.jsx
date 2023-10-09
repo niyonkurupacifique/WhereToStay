@@ -39,10 +39,74 @@ export default function LoginFromAccount() {
   const { setMessageType } = useContext(OpenModalContext);
   const [loading, setLoading] = useState(false);
   const{setOpenSignup}=useContext(OpenModalContext)
+  const[tokenToUseInPayment,setToKenToUseInPaymenet]=useState("")
   const navigate = useNavigate(Navigate);
   const handleclose = () => {
     setOpenLogin(false);
   };
+
+
+
+
+  
+
+  const HandleRequestPaymentLogin= async () => {
+    try {
+      setLoading(true);
+      const result = await fetch(" https://opay-api.oltranz.com/opay/login", {
+        method: "POST",
+        body: JSON.stringify(
+          {
+           
+            "username":enterYourEmail,
+            "password":"Opay@123",
+          }
+        ),
+        headers: {
+          "Content-Type":"application/json",
+        
+        },
+      });
+  
+      if (!result.ok) {
+        // Handle non-successful status codes here
+        console.error(result.status);
+        setmessageStatus(true)
+        setMessage(result.description)
+        
+        setMessageType("error")
+        console.log(result.description)
+        
+      } else {
+        const result2 = await result.json();
+        console.log(result2)
+       
+          setmessageStatus(true);
+          setMessage(result2.description)
+
+          setMessageType("success")
+       console.log(result2.description)
+       console.log("token to use in payment is:",result2.body.tokens.access_token)
+       setToKenToUseInPaymenet(result2.body.tokens.access_token)
+        
+      }
+  
+      
+    } catch (error) {
+      console.error("An error occurred:", error);
+      setMessageType("error")
+      setMessage(" failed")
+    }finally {
+      setLoading(false); // Step 2: Set loading to false when the request is completed
+    }
+  };
+
+
+
+
+    
+
+
 
   const handleLoginn = async (e) => {
     e.preventDefault();
@@ -77,11 +141,15 @@ export default function LoginFromAccount() {
           setmessageStatus(true);
           setMessage(result2.message);
           setMessageType("success");
+          // HandleRequestPaymentLogin()
           setOpenLogin(false);
           console.log("token is", result2.token);
           const token=result2.token 
        const newToken=token
+         
           navigate(`/rentallist/${newToken}`);
+         
+
         } else {
           setmessageStatus(true);
           setMessage(result2.message);

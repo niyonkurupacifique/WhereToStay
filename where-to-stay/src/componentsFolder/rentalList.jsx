@@ -18,6 +18,7 @@ import {HideOn} from 'react-hide-on-scroll'
  import Footer from "./footer";
 import { useState } from "react";
 
+
 const RentalList=()=>{
  
 const [allHouse,setAllHouse]=useState([])
@@ -36,6 +37,8 @@ const[priceRangeAmount,setPriceRangeAmount]=useState("")
 const[filteredArray,setFilteredArray]=useState([])
 const[allHouseToFilter,setAllHouseToFilter]=useState([])
 const{newToken}=useParams()
+const{tokenToUseInPayment}=useParams()
+console.log("token to use in payment presente in rental list is:",tokenToUseInPayment)
 const newtoken2=newToken.split(" ")
 const newtoken3=newtoken2[1]
 console.log(priceRangeAmount)
@@ -344,7 +347,7 @@ const handleMouseLeav=()=>{
    
      </HideOn>
      <div className=" text-white inset-x-0  bottom-28 absolute w-full mt-40">
-     <HideOn atHeight height={1}>
+     {/* <HideOn atHeight height={1}>
     <div className=" flex justify-between border mx-24 py-7 px-7 rounded-lg bg-white mb-[-83px]">
         
         <div>
@@ -437,7 +440,7 @@ const handleMouseLeav=()=>{
     </button>
         </div>
         </div>
-        </HideOn>
+        </HideOn> */}
 
      </div>
   </div>
@@ -544,13 +547,13 @@ const handleMouseLeav=()=>{
            </div>
            </div>
            <div className=" flex space-x-8 max-md:space-x-1 sm:space-x-1 max-lg:space-x-2 font-headerFontFamily font-txtbodyFontWeight leading-anotherLineHeight tracking-txtbodyLetterspacing text-txthecolor">
-          <div className=" flex  space-x-56">
+         
            <div className=" flex space-x-1">
               <div>
                  <MdBedroomParent color="blue" size={25} />
               </div>
               <div>
-              {item.number_rooms}
+              {item.number_rooms}rooms
               </div>
            </div>
            <div className=" flex space-x-3">
@@ -558,10 +561,10 @@ const handleMouseLeav=()=>{
                  <MdBathroom color="blue" size={25} />
               </div>
               <div>
-               {item.number_of_bathrooms}
+               {item.number_of_bathrooms}bathrooms
               </div>
             </div>
-            </div>
+           
             <div className="flex justify-between items-center">
               <div className="text-purple-700 font-semibold text-xl">
                 {item.price} Rwf

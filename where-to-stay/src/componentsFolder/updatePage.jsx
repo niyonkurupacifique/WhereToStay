@@ -37,13 +37,8 @@ import { color } from "@cloudinary/url-gen/qualifiers/background";
 import "../App.css";
 
 
-const AddnewRental = () => {
+const UpdateRental = () => {
   const navigate = useNavigate(Navigate);
-  const{tokenToUseInPayment}=useParams()
-  const { newToken } = useParams();
-  const splitToken = newToken.split(" ");
-  const newTokenn = splitToken[1];
-  console.log("token from dashboard", newTokenn);
   const [imageURL, setImageURL] = useState("");
   const [imageURL2, setImageURL2] = useState("");
   const [imageURL3, setImageURL3] = useState("");
@@ -354,7 +349,7 @@ const AddnewRental = () => {
             }),
             headers: {
               "Content-Type": "application/json; charset=utf-8",
-              Authorization: newTokenn,
+            
             },
           }
         );
@@ -371,7 +366,7 @@ const AddnewRental = () => {
           setmessageStatus(true);
           setMessage("property posted successfully");
           setMessageType("success");
-          navigate(`/dashboard/${newToken}`);
+        
         }
       } catch (error) {
         console.error("An error occurred:", error);
@@ -384,90 +379,17 @@ const AddnewRental = () => {
   };
 
   return (
-    <div className=" h-full overflow-y-auto">
-      <div className=" fixed top-1">
-        <div className=" mt-4 w-full mx-8 ">
-          <div className=" flex-1 flex   justify-between  mx-8">
-            <div>
-              <img style={{ maxWidth: "150px" }} src={logo} alt="" />
-            </div>
-          </div>
-        </div>
-      </div>
+    <div className=" h-full overflow-x-hidden">
+     
       <div className=" mt-10">
-        <button
-          data-drawer-target="default-sidebar"
-          data-drawer-toggle="default-sidebar"
-          aria-controls="default-sidebar"
-          type="button"
-          class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-        >
-          <span class="sr-only">Open sidebar</span>
-          <svg
-            class="w-6 h-6"
-            aria-hidden="true"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              clip-rule="evenodd"
-              fill-rule="evenodd"
-              d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
-            ></path>
-          </svg>
-        </button>
-
-        <aside
-          id="default-sidebar"
-          class="fixed border   top-28  left-10 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
-          aria-label="Sidebar"
-        >
-          <div class="h-full px-3 py-4 bg-txtecolor overflow-y-auto  dark:bg-gray-800">
-            <ul class="space-y-2 font-medium">
-              <li>
-                <a
-                  href="#"
-                  class="flex flex-col  items-center p-2 text-white rounded-lg dark:text-white hover:bg-gray-700 dark:hover:bg-gray-700 group"
-                >
-                  <img style={{ maxWidth: "50px" }} src={profilePhoto} alt="" />
-                  {/* <span class="">Uwase Yvonne</span> */}
-                </a>
-              </li>
-
-              <li>
-                <button
-                  onClick={() => {
-                    navigate(`/dashboard/${newToken}`);
-                  }}
-                >
-                  {" "}
-                  <div class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-gray-700 dark:hover:bg-gray-700 group">
-                    <img src={dashboardlogo} alt="" />
-                    <span class="flex-1 ml-3 whitespace-nowrap">Dashboard</span>
-                  </div>
-                </button>
-              </li>
-
-              <li>
-                <a
-                  href="#"
-                  class="flex items-center p-2 text-white rounded-lg dark:text-white hover:bg-gray-700 dark:hover:bg-gray-700 group"
-                >
-                  <img src={logoutlogo} alt="" />
-                  <span class="flex-1 ml-3 whitespace-nowrap">LogOut</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-        </aside>
-
-        <div style={{ marginLeft: "38%" }} className="  mt-28 space-y-4">
+       
+      
+  <div  className="  mt-28 space-y-4">
  
-        <div class="mb-3 flex space-x-4">
-            <label
+        <div class="mb-3  flex space-x-16">
+            <label style={{marginLeft:'30%'}}
               for="large-input"
-              class="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white"
+              class="block mb-2  mt-4 text-sm font-medium text-gray-900 dark:text-white"
             >
               City
             </label>
@@ -475,16 +397,16 @@ const AddnewRental = () => {
               onChange={(e) => {
                 setCity(e.target.value);
               }}
-              style={{ width: "55%", marginLeft: "22%", padding: "8px", fontSize: "14px" }}
+              style={{ width: "39%", padding: "8px", fontSize: "14px" }}
               type="text"
               id="large-input"
               class="block  p-4 text-gray-900 border  border-b-mycolor rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             />
           </div>
-          <div class="mb-6 flex space-x-16">
-            <label
+          <div class="mb-6    flex space-x-16">
+            <label style={{marginLeft:'25%'}}
               for="large-input"
-              class="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white"
+              class="block mb-2  mt-4 text-sm font-medium text-gray-900 dark:text-white"
             >
               Street Address
             </label>
@@ -492,7 +414,7 @@ const AddnewRental = () => {
               onChange={(e) => {
                 setStreetAddress(e.target.value);
               }}
-              style={{ width: "55%", marginLeft: "14%", padding: "8px", fontSize: "14px" }}
+              style={{ width: "39%",  padding: "8px", fontSize: "14px" }}
               type="text"
               id="large-input"
               class="block  p-4 text-gray-900 border  border-b-mycolor rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -525,9 +447,9 @@ const AddnewRental = () => {
 
 
           <div class="mb-6 flex space-x-16">
-            <label
+            <label style={{marginLeft:'25%'}}
               for="large-input"
-              class="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white"
+              class="block mb-2 mt-4 ml-96 text-sm font-medium text-gray-900 dark:text-white"
             >
               Property Type
             </label>
@@ -535,7 +457,7 @@ const AddnewRental = () => {
               onChange={(e) => {
                 setPropertyType(e.target.value);
               }}
-              style={{ width: "55%", marginLeft: "14.5%", padding: "8px", fontSize: "14px" }}
+              style={{ width: "39%",  padding: "8px", fontSize: "14px" }}
               type="text"
               id="large-input"
               class="block  p-4 text-gray-900 border  border-b-mycolor rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -547,9 +469,9 @@ const AddnewRental = () => {
             </select>
           </div>
           <div class="mb-6 flex space-x-16">
-  <label
+  <label style={{marginLeft:'21%'}}
     for="bedroom-select"
-    class="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white"
+    class="block ml-96 mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white"
   >
     Number of Bedrooms
   </label>
@@ -557,7 +479,7 @@ const AddnewRental = () => {
     onChange={(e) => {
       setNumberOfBedroom(e.target.value);
     }}
-    style={{ width: "55%", marginLeft: "9%", padding: "8px", fontSize: "14px" }}
+    style={{ width: "39%", padding: "8px", fontSize: "14px" }}
     id="bedroom-select"
     className="block p-4 text-gray-900 border border-b-mycolor rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
   >
@@ -574,9 +496,9 @@ const AddnewRental = () => {
 
 
           <div class="mb-6 flex space-x-16">
-  <label
+  <label style={{marginLeft:'21%'}}
     for="bathroom-select"
-    class="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white"
+    class="block ml-96 mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white"
   >
     Number of bathrooms
   </label>
@@ -584,7 +506,7 @@ const AddnewRental = () => {
     onChange={(e) => {
       setNumberOfBoothRoom(e.target.value);
     }}
-    style={{ width: "55%", marginLeft: "9%", padding: "8px", fontSize: "14px" }}
+    style={{ width: "39%",  padding: "8px", fontSize: "14px" }}
     id="bathroom-select"
     class="block p-4 text-gray-900 border border-b-mycolor rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
   >
@@ -600,31 +522,32 @@ const AddnewRental = () => {
 </div>
 
 <div className="mb-6 flex space-x-20 w-4/5" style={{ maxHeight: "300px" }}>
-  <label
+  <label style={{marginLeft:'32%'}}
     htmlFor="large-input"
-    className="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white"
-    style={{ marginRight: "12%" }}
+    className="block mb-2 ml-96 mt-4 text-sm font-medium text-gray-900 dark:text-white"
+   
   >
     Amenities
   </label>
   <Select
+ 
     isMulti
     options={amenitiesOptions}
     value={selectedAmenities.map(value => ({ value, label: value }))}
     onChange={handleAmenitiesChange}
     styles={{
-      marginLeft: "10%",
+     
       padding: "8px",
       fontSize: "14px",
       maxHeight: "80%",
     }}
-    className="w-3/4"
+    className=" w-1/2"
   />
 </div>
 
 
           <div class="mb-6 flex space-x-16">
-            <label
+            <label style={{marginLeft:'24%'}}
               for="large-input"
               class="block mb-2 mt-4 mr-8 text-sm font-medium text-gray-900 dark:text-white"
             >
@@ -632,7 +555,7 @@ const AddnewRental = () => {
             </label>
             <input
               onChange={(e) => setRentalPrice(e.target.value)}
-              style={{ width: "55%", marginLeft: "13%", padding: "8px", fontSize: "14px" }}
+              style={{ width: "39%", padding: "7px", fontSize: "14px" }}
               type="number"
               id="large-input"
               class="block  p-4 text-gray-900 border  border-b-mycolor rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -640,7 +563,7 @@ const AddnewRental = () => {
           </div>
           
           <div class="mb-6 flex space-x-16">
-            <label
+            <label   style={{marginLeft:'17%'}}
               for="large-input"
               class="block mb-2 mt-4 text-sm font-medium text-gray-900 dark:text-white"
             >
@@ -648,7 +571,7 @@ const AddnewRental = () => {
             </label>
             <textarea
               onChange={handleDescriptionChange}
-              style={{ width: "55%", marginLeft: "8%", padding: "8px", fontSize: "14px" }}
+              style={{ width: "39%", marginLeft: "8%", padding: "8px", fontSize: "14px" }}
               type="text"
               id="large-input"
               value={DescriptionOfProperty}
@@ -657,8 +580,8 @@ const AddnewRental = () => {
             <p className="text-gray-500">{wordCount} word{wordCount !== 1 ? 's' : ''}</p>
           </div>
           <div className=" flex  space-x-10">
-            <div className=" mt-4">Upload Photo</div>
-            <div className="flex space-x-7" style={{ marginLeft: '19%' }}>
+            <div style={{marginLeft:'23%'}} className=" mt-4">Upload Photo</div>
+            <div className="flex space-x-7" style={{ marginLeft: '8%' }}>
               <div
                 style={{ marginLeft: "1%", maxWidth: "6%", maxHeight: "80%" }}
                 class="relative   text-white p-2 rounded border border-black   cursor-pointer"
@@ -827,4 +750,4 @@ const AddnewRental = () => {
   );
 };
 
-export default AddnewRental;
+export default UpdateRental;
