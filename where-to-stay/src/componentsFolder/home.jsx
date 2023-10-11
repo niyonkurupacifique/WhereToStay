@@ -311,7 +311,7 @@ const handleMouseLeav=()=>{
 
     return(
         <>
-        <div className=" h-full mx-5">
+        <div className=" h-full mx-5 max-sm:hidden max-md:hidden max-lg:hidden max-xl:hidden">
         <Header></Header>
       
         <div  onMouseOver={handleMouseOver}   onMouseOut={handleMouseLeav} className="flex bg-white  z-10 bottom-5 fixed  right-0 ">
@@ -612,7 +612,7 @@ const handleMouseLeav=()=>{
 </div>
 
 
-    <div className=" flex flex-col items-center h-60 mt-10 bg-blue-500 ml-5 mr-3">
+    <div className=" flex flex-col items-center h-60 mt-10 bg-blue-500 ml-5 mr-3  max-sm:hidden max-md:hidden max-lg:hidden max-xl:hidden">
       <div className=" w-full py-6  space-y-4">
      <div  className=" flex justify-center">
        <span className=" font-txtFontFamily text-txtbFontsize font-headerFontWeight tracking-txtbodyLetterspacing text-white">would you like to share your feedback?</span>
@@ -643,10 +643,11 @@ const handleMouseLeav=()=>{
      </div>
      </div>
    </div>
-   <div>
+   <div className=" max-sm:hidden   max-md:hidden max-lg:hidden max-xl:hidden">
+   
     <Footer></Footer>
    </div>
-
+   <div className=" max-sm:visible max-md:visible   max-lg:visible max-xl:visible  xl:hidden">still working on responsiveness use large screen...........</div>
       </>
     )
 }
