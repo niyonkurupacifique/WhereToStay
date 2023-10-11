@@ -10,7 +10,10 @@ import payPalLogo from './Images/PAYPAL.png'
 import { useParams } from "react-router-dom";
 import { useContext } from "react";
 import { OpenModalContext } from "./context";
+import { useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 const PaymentPage=()=>{
+  const navigate=useNavigate(Navigate)
   const[checked,setChecked]=useState(false)
   const[airtelChecked,setAirtelChecked]=useState(false)
   const[paypalChecked,setPaypalChecked]=useState(false)
@@ -172,7 +175,7 @@ const HandleRequestPayment= async (e) => {
             <div className=" ml-10 mt-5">
                 <img src={logo} alt="" />
             </div>
-            <div className="ml-10 mt-5">
+            <div onClick={()=>{navigate(-1) }} className="ml-10 mt-5">
             <img style={{width:"7%"}} className=" " src={back} alt="" />
             </div>
              <div className=" flex ml-10 mt-14">

@@ -36,6 +36,12 @@ export default function StudentsStatusOrders() {
   console.log("students token is:",Newtoken)
   const [currentDate] = useState(new Date());
   const [MyProperty, setMyProperty] = useState([]);
+  const[openDeleteWarning,setOpenDeleteWarning]=useState(false)
+  const[deleteStatus,setDeleteStatus]=useState(false)
+  const{setmessageStatus}=useContext(OpenModalContext)
+  const{messageStatus}=useContext(OpenModalContext)
+  const{setMessage}=useContext(OpenModalContext)
+  const{setMessageType}=useContext(OpenModalContext)
   
   const navigate=useNavigate(Navigate)
   // ... (previous code)
@@ -80,9 +86,46 @@ export default function StudentsStatusOrders() {
     getMyRequestedProperty();
   }, []);
 
-  const handleCancelRequest = (index) => {
-    
-  };
+  const handleCancelProperty = async (id) => {
+      
+    try {
+      // Make an API call to delete the property
+      const response = await fetch(`https://wheretostay.onrender.com/api/bookings/cancel/${id}`, {
+        method: 'DELETE',
+         Authorization: `Bearer ${Newtoken}`
+       
+      });
+
+      if (response.status === 200) {
+       
+        setMyProperty((prevProperties) =>
+          prevProperties.filter((property) => property.id !==id)
+        );
+        console.log("Property deleted successfully");
+        setmessageStatus(true)
+        window.location.reload()
+      setMessage("Booking canceled successfully")
+      setMessageType("success")
+      setOpenDeleteWarning(false)
+      } else {
+        
+        console.error("Error canceling booking");
+        setmessageStatus(true)
+      setMessage("Error Cancel Booking")
+      setMessageType("error")
+      setOpenDeleteWarning(false)
+      }
+    } catch (error) {
+      console.error("Error deleting property:", error);
+      setmessageStatus(true)
+      setMessage("Error Cancel Booking")
+      setMessageType("error")
+      setOpenDeleteWarning(false)
+    }
+  }; 
+
+
+
 
   return (
     <div className='space-y-8'>
@@ -117,6 +160,7 @@ export default function StudentsStatusOrders() {
                {item.bookings[0]["status"]=="Rejected"&&<div className=' text-red-500'>{item.bookings[0]["status"]}</div>}
                {item.bookings[0]["status"]=="Request Sent"&&<div className=' text-black'>{item.bookings[0]["status"]}</div>}
                {item.bookings[0]["status"]=="Approved"&&<div  className=' text-emerald-500'>{item.bookings[0]["status"]}</div>}
+             
               </TableCell>
              
              {
@@ -134,7 +178,7 @@ export default function StudentsStatusOrders() {
               {
               item.bookings[0]["status"]=="Request Sent"&& <TableCell>
               
-              <button class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
+              <button onClick={()=>{handleCancelProperty(item.bookings[0]["id"])}} class="relative inline-flex items-center justify-center p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
   <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">
      Cancel
   </span>

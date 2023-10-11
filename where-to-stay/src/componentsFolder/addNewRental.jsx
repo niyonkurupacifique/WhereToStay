@@ -498,7 +498,7 @@ const AddnewRental = () => {
               class="block  p-4 text-gray-900 border  border-b-mycolor rounded-lg bg-gray-50 sm:text-md focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             />
           </div>
-          {/* <div className="mb-3 flex space-x-4">
+          <div className="mb-3 flex space-x-4">
   <label
     htmlFor="large-input"
     className="block mb-1 mt-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -520,7 +520,7 @@ const AddnewRental = () => {
   >
     <FaLocationArrow />
   </button>
-</div> */}
+</div>
 
 
 

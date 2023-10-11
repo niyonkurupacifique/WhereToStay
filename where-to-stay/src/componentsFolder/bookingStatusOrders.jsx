@@ -41,6 +41,9 @@ export default function BookingStatusOrders() {
    const { setMessageType } = useContext(OpenModalContext);
    const serializedBookingIds = Cookies.get("bookingIds");
    const[status,setStatus]=useState("no action")
+   const[openDeleteWarning,setOpenDeleteWarning]=useState(false)
+  const[deleteStatus,setDeleteStatus]=useState(false)
+ 
    let propertyBookingIds = []; // Declare propertyBookingIds here
    
    if (serializedBookingIds) {
